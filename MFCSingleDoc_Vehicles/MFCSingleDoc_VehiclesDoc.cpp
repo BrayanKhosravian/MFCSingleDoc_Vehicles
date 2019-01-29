@@ -22,6 +22,7 @@
 IMPLEMENT_DYNCREATE(CMFCSingleDocVehiclesDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CMFCSingleDocVehiclesDoc, CDocument)
+	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMFCSingleDocVehiclesDoc::OnToolsAddvehicle)
 END_MESSAGE_MAP()
 
 
@@ -135,3 +136,9 @@ void CMFCSingleDocVehiclesDoc::Dump(CDumpContext& dc) const
 
 
 // CMFCSingleDocVehiclesDoc commands
+
+
+void CMFCSingleDocVehiclesDoc::OnToolsAddvehicle()
+{
+	// TODO: Add your command handler code here
+}

@@ -20,7 +20,6 @@ IMPLEMENT_DYNCREATE(CLeftView, CTreeView)
 
 BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CLeftView::OnToolsAddvehicle)
-	//ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CLeftView::OnTvnSelchanged)
 END_MESSAGE_MAP()
 
 
@@ -48,18 +47,9 @@ void CLeftView::OnInitialUpdate()
 
 	// TODO: You may populate your TreeView with items by directly accessing
 	//  its tree control through a call to GetTreeCtrl().
-	// HTREEITEM hItem, hCar;
-	// CTreeCtrl& tree = GetTreeCtrl();
 	
 	m_hItem = m_tree.InsertItem(L"Car List", TVI_ROOT);
 	
-	/*
-	m_hCar = m_tree.InsertItem(L"ID: 0, Name: Mustang", m_hItem);
-	m_tree.InsertItem(L"Max fuel capacitiy: 100 Liter", m_hCar);
-	m_tree.InsertItem(L"Fuel usage: 10 Liter/100 km", m_hCar);
-	m_tree.InsertItem(L"Fuel remaining: 50 Liter", m_hCar);
-	m_tree.InsertItem(L"Driven distance: 0 km", m_hCar);
-	*/
 }
 
 
@@ -111,12 +101,3 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 	m_tree.InsertItem(L"Fuel remaining: "		+ fuelRemaining, m_hCar);
 	m_tree.InsertItem(L"Driven distance: "		+ drivenDistance, m_hCar);
 }
-
-//
-//void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
-//{
-//	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
-//	
-//	// TODO: Add your control notification handler code here
-//	*pResult = 0;
-//}

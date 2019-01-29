@@ -58,8 +58,6 @@ private:
 	CString m_FuelRemaining;
 	CString m_DrivenDistance;
 
-public:
-	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 
