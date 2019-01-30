@@ -46,5 +46,6 @@ protected:
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
 public:
-	afx_msg void OnToolsAddvehicle();
+	
+
 };

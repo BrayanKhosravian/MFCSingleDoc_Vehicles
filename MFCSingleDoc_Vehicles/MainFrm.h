@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "LeftView.h"
 class CMFCSingleDocVehiclesView;
 
 class CMainFrame : public CFrameWndEx
@@ -30,6 +31,8 @@ public:
 public:
 	virtual ~CMainFrame();
 	CMFCSingleDocVehiclesView* GetRightPane();
+	CLeftView* GetLeftPane();	// custom
+
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -51,6 +54,7 @@ protected:
 	afx_msg void OnApplicationLook(UINT id);
 	afx_msg void OnUpdateApplicationLook(CCmdUI* pCmdUI);
 	DECLARE_MESSAGE_MAP()
+
 
 };
 

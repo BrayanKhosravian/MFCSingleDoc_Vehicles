@@ -49,7 +49,6 @@ void CLeftView::OnInitialUpdate()
 	//  its tree control through a call to GetTreeCtrl().
 	
 	m_hItem = m_tree.InsertItem(L"Car List", TVI_ROOT);
-	
 }
 
 

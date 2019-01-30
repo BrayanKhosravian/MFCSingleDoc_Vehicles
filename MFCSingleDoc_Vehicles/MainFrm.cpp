@@ -8,6 +8,9 @@
 #include "MainFrm.h"
 #include "LeftView.h"
 #include "MFCSingleDoc_VehiclesView.h"
+#include <iostream>
+
+#include "Windows.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -177,6 +180,9 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
+	
+
+
 	return TRUE;
 }
 
@@ -201,7 +207,16 @@ CMFCSingleDocVehiclesView* CMainFrame::GetRightPane()
 {
 	CWnd* pWnd = m_wndSplitter.GetPane(0, 1);
 	CMFCSingleDocVehiclesView* pView = DYNAMIC_DOWNCAST(CMFCSingleDocVehiclesView, pWnd);
+
 	return pView;
+}
+
+CLeftView* CMainFrame::GetLeftPane()
+{
+	CWnd* lWnd = m_wndSplitter.GetPane(0, 0);
+	CLeftView* lView = DYNAMIC_DOWNCAST(CLeftView, lWnd);
+
+	return lView;
 }
 
 void CMainFrame::OnUpdateViewStyles(CCmdUI* pCmdUI)
