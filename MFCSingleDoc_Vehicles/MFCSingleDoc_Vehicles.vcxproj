@@ -183,7 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CAddVehicleDlg.h" />
+    <ClInclude Include="CConfigureVehicleDlg.h" />
     <ClInclude Include="LeftView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MFCSingleDoc_Vehicles.h" />
@@ -194,7 +194,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CAddVehicleDlg.cpp" />
+    <ClCompile Include="CConfigureVehicleDlg.cpp" />
     <ClCompile Include="LeftView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MFCSingleDoc_Vehicles.cpp" />

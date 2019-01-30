@@ -11,7 +11,7 @@
 #include <iostream>
 
 #include "Windows.h"
-#include "CAddVehicleDlg.h"
+#include "CConfigureVehicleDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -463,7 +463,7 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 
 void CMainFrame::OnToolsAddvehicle()
 {
-	CAddVehicleDlg vehicleDialog;
+	CConfigureVehicleDlg vehicleDialog;
 	if(vehicleDialog.DoModal() == IDOK)
 	{
 		const CString id = vehicleDialog.m_ID;

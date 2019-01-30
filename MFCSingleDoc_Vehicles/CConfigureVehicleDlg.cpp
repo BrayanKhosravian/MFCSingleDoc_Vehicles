@@ -1,18 +1,18 @@
-// CAddVehicleDlg.cpp : implementation file
+// CConfigureVehicleDlg.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "MFCSingleDoc_Vehicles.h"
-#include "CAddVehicleDlg.h"
 #include "afxdialogex.h"
+#include "CConfigureVehicleDlg.h"
 
 
-// CAddVehicleDlg dialog
+// CConfigureVehicleDlg dialog
 
-IMPLEMENT_DYNAMIC(CAddVehicleDlg, CDialog)
+IMPLEMENT_DYNAMIC(CConfigureVehicleDlg, CDialog)
 
-CAddVehicleDlg::CAddVehicleDlg(CWnd* pParent /*=nullptr*/)
-	: CDialog(IDD_AddVehicle, pParent)
+CConfigureVehicleDlg::CConfigureVehicleDlg(CWnd* pParent /*=nullptr*/)
+	: CDialog(IDD_ConfigureVehicle, pParent)
 	, m_ID(_T(""))
 	, m_Name(_T(""))
 	, m_MaxFuelCapacity(_T(""))
@@ -23,11 +23,11 @@ CAddVehicleDlg::CAddVehicleDlg(CWnd* pParent /*=nullptr*/)
 
 }
 
-CAddVehicleDlg::~CAddVehicleDlg()
+CConfigureVehicleDlg::~CConfigureVehicleDlg()
 {
 }
 
-void CAddVehicleDlg::DoDataExchange(CDataExchange* pDX)
+void CConfigureVehicleDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT_ID, m_ID);
@@ -39,8 +39,8 @@ void CAddVehicleDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CAddVehicleDlg, CDialog)
+BEGIN_MESSAGE_MAP(CConfigureVehicleDlg, CDialog)
 END_MESSAGE_MAP()
 
 
-// CAddVehicleDlg message handlers
+// CConfigureVehicleDlg message handlers

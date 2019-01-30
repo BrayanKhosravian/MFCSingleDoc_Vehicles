@@ -11,7 +11,7 @@
 
 #include "MFCSingleDoc_VehiclesDoc.h"
 #include "MFCSingleDoc_VehiclesView.h"
-#include "CAddVehicleDlg.h"
+#include "CConfigureVehicleDlg.h"
 #include "LeftView.h"
 
 #ifdef _DEBUG
@@ -104,7 +104,7 @@ void CMFCSingleDocVehiclesView::OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpS
 //
 //void CMFCSingleDocVehiclesView::OnToolsAddvehicle()
 //{
-//	CAddVehicleDlg addVehicleDlg;
+//	CConfigureVehicleDlg addVehicleDlg;
 //	if(addVehicleDlg.DoModal() == IDOK)
 //	{
 //

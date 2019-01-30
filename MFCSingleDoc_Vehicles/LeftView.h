@@ -52,6 +52,7 @@ private:
 	CTreeCtrl& m_tree = GetTreeCtrl();
 	HTREEITEM m_hItem;
 	HTREEITEM m_hCar;
+	HTREEITEM m_selectedItem;
 	CString m_ID;
 	CString m_Name;
 	CString m_MaxFuelCapacity;
@@ -59,6 +60,8 @@ private:
 	CString m_FuelRemaining;
 	CString m_DrivenDistance;
 
+public:
+	afx_msg void OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 

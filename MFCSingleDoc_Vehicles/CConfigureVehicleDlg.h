@@ -1,19 +1,19 @@
 #pragma once
 
 
-// CAddVehicleDlg dialog
+// CConfigureVehicleDlg dialog
 
-class CAddVehicleDlg : public CDialog
+class CConfigureVehicleDlg : public CDialog
 {
-	DECLARE_DYNAMIC(CAddVehicleDlg)
+	DECLARE_DYNAMIC(CConfigureVehicleDlg)
 
 public:
-	CAddVehicleDlg(CWnd* pParent = nullptr);   // standard constructor
-	virtual ~CAddVehicleDlg();
+	CConfigureVehicleDlg(CWnd* pParent = nullptr);   // standard constructor
+	virtual ~CConfigureVehicleDlg();
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_AddVehicle };
+	enum { IDD = IDD_ConfigureVehicle };
 #endif
 
 protected:

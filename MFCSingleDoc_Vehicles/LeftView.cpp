@@ -19,6 +19,7 @@ IMPLEMENT_DYNCREATE(CLeftView, CTreeView)
 
 BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	
+	ON_NOTIFY_REFLECT(NM_RCLICK, &CLeftView::OnNMRClick)
 END_MESSAGE_MAP()
 
 
@@ -83,3 +84,52 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 	m_tree.InsertItem(L"Fuel remaining: "		+ fuelRemaining, m_hCar);
 	m_tree.InsertItem(L"Driven distance: "		+ drivenDistance, m_hCar);
 }
+
+
+void CLeftView::OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	CPoint ptMouse, ptPopup;
+	CTreeCtrl& treeCtrl = GetTreeCtrl();
+	POINT sMouse;
+	UINT uFlags;
+
+	// Get the mouse position relative to the tree view.
+	::GetCursorPos(&sMouse);
+	ptMouse = sMouse;
+	ptPopup = ptMouse;
+	ScreenToClient(&ptMouse);
+
+	// Find the item it is over (ignore if not over label or bitmap), and 
+	// select it as if we had clicked it with the left mouse button.
+	m_selectedItem = treeCtrl.HitTest(ptMouse, &uFlags);
+
+	// check if root item is selected item // it it is root item return
+	HTREEITEM rootItem = treeCtrl.GetRootItem();
+	if (rootItem == m_selectedItem) return;
+
+	if (m_selectedItem != NULL && (uFlags & TVHT_ONITEM))
+	{
+		treeCtrl.SelectItem(m_selectedItem);
+
+		// Id is not included its not a child of root // returns
+		if (treeCtrl.GetItemText(m_selectedItem).Find(L"ID")) 
+		{
+			AfxMessageBox(L"Select a root entry!");
+			return;
+		}
+		
+		//if you want to popup menu this below: 
+		CMenu menu;
+		// menu.LoadMenu(IDR_MAINFRAME);
+		menu.LoadMenu(IDR_VehicleMenu);
+		CMenu* pMenu = menu.GetSubMenu(0);
+		// Display the popup menu. pMenu is the menu to use, pWnd is the 
+		// window to receive the WM_COMMAND messages from the menu.
+		pMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_LEFTBUTTON, ptPopup.x,
+			ptPopup.y, this, 0);
+	}
+
+	*pResult = 0;
+}
+
+

@@ -39,7 +39,7 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CAddVehicleDlg.h">
+    <ClInclude Include="CConfigureVehicleDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,7 +62,7 @@
     <ClCompile Include="LeftView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CAddVehicleDlg.cpp">
+    <ClCompile Include="CConfigureVehicleDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
