@@ -62,6 +62,8 @@ private:
 
 public:
 	afx_msg void OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnVehiclemenuDelete();
+	afx_msg void OnVehiclemenuEdit();
 };
 
 

@@ -20,6 +20,8 @@ IMPLEMENT_DYNCREATE(CLeftView, CTreeView)
 BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	
 	ON_NOTIFY_REFLECT(NM_RCLICK, &CLeftView::OnNMRClick)
+	ON_COMMAND(ID_VEHICLEMENU_DELETE, &CLeftView::OnVehiclemenuDelete)
+	ON_COMMAND(ID_VEHICLEMENU_EDIT, &CLeftView::OnVehiclemenuEdit)
 END_MESSAGE_MAP()
 
 
@@ -132,4 +134,13 @@ void CLeftView::OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
+void CLeftView::OnVehiclemenuDelete()
+{
+	if(m_selectedItem != NULL) m_tree.DeleteItem(m_selectedItem);
+}
 
+
+void CLeftView::OnVehiclemenuEdit()
+{
+	// TODO: Add your command handler code here
+}
