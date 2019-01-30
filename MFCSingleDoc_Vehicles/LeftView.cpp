@@ -7,7 +7,6 @@
 
 #include "MFCSingleDoc_VehiclesDoc.h"
 #include "LeftView.h"
-#include "CAddVehicleDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -19,7 +18,7 @@
 IMPLEMENT_DYNCREATE(CLeftView, CTreeView)
 
 BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
-	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CLeftView::OnToolsAddvehicle)
+	
 END_MESSAGE_MAP()
 
 
@@ -74,23 +73,7 @@ CMFCSingleDocVehiclesDoc* CLeftView::GetDocument() // non-debug version is inlin
 #endif //_DEBUG
 
 
-// CLeftView message handlers
- 
-void CLeftView::OnToolsAddvehicle()
-{
-	CAddVehicleDlg addVehicleDlg;
-	if (addVehicleDlg.DoModal() == IDOK)
-	{
-		m_ID = addVehicleDlg.m_ID;
-		m_Name = addVehicleDlg.m_Name;
-		m_MaxFuelCapacity = addVehicleDlg.m_MaxFuelCapacity;
-		m_FuelUsage = addVehicleDlg.m_FuelUsage;
-		m_FuelRemaining = addVehicleDlg.m_FuelRemaining;
-		m_DrivenDistance = addVehicleDlg.m_DrivenDistance;
-
-		InsertVehicleToListView(m_ID, m_Name, m_MaxFuelCapacity, m_FuelUsage, m_FuelRemaining, m_DrivenDistance);
-	}
-}
+// custom implementations
 
 void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {

@@ -43,7 +43,6 @@ protected:
 	
 // Custom Implementations
 public:
-	afx_msg void OnToolsAddvehicle();
 
 public:
 	void InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage,
