@@ -148,7 +148,7 @@ void CLeftView::OnVehiclemenuDelete()
 
 void CLeftView::OnVehiclemenuEdit()
 {
-	CConfigureVehicleDlg configureVehicle;
+	CConfigureVehicleDlg configureVehicleDialog;
 	CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance;
 
 	CString nameAndID = m_treeCtrl.GetItemText(m_selectedItem);
@@ -160,26 +160,37 @@ void CLeftView::OnVehiclemenuEdit()
 
 	auto firstChild = m_treeCtrl.GetNextItem(m_selectedItem, TVGN_CHILD);
 	maxFuelCapacity = m_treeCtrl.GetItemText(firstChild);
+	maxFuelCapacity.Replace(L"Max fuel capacity:", L"");
 
 	auto nextChild = m_treeCtrl.GetNextSiblingItem(firstChild);
 	fuelUsage = m_treeCtrl.GetItemText(nextChild);
+	fuelUsage.Replace(L"Fuel usage: ", L"");
 
 	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
 	fuelRemaining = m_treeCtrl.GetItemText(nextChild);
+	fuelRemaining.Replace(L"Fuel remaining: ", L"");
 
 	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
 	drivenDistance = m_treeCtrl.GetItemText(nextChild);
+	drivenDistance.Replace(L"Driven distance: ", L"");
 
-	configureVehicle.m_Name = name;
-	configureVehicle.m_ID = id;
-	configureVehicle.m_MaxFuelCapacity = maxFuelCapacity;
-	configureVehicle.m_FuelUsage = fuelUsage;
-	configureVehicle.m_FuelRemaining = fuelRemaining;
-	configureVehicle.m_DrivenDistance = drivenDistance;
+	configureVehicleDialog.m_Name = name;
+	configureVehicleDialog.m_ID = id;
+	configureVehicleDialog.m_MaxFuelCapacity = maxFuelCapacity;
+	configureVehicleDialog.m_FuelUsage = fuelUsage;
+	configureVehicleDialog.m_FuelRemaining = fuelRemaining;
+	configureVehicleDialog.m_DrivenDistance = drivenDistance;
 
-	if(configureVehicle.DoModal() == IDOK)
+	if(configureVehicleDialog.DoModal() == IDOK)
 	{
-		
+		m_treeCtrl.DeleteItem(m_selectedItem);
+		id = configureVehicleDialog.m_ID;
+		name = configureVehicleDialog.m_Name;
+		maxFuelCapacity = configureVehicleDialog.m_MaxFuelCapacity;
+		fuelUsage = configureVehicleDialog.m_FuelUsage;
+		fuelRemaining = configureVehicleDialog.m_FuelRemaining;
+		drivenDistance = configureVehicleDialog.m_DrivenDistance;
+		this->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
 	}
 }
 
@@ -209,11 +220,7 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_treeCtrl.SelectItem(m_selectedItem);
 
 		// Id is not included its not a child of root // returns
-		if (m_treeCtrl.GetItemText(m_selectedItem).Find(L"ID"))
-		{
-			AfxMessageBox(L"Select a root entry!");
-			return;
-		}
+		if (m_treeCtrl.GetItemText(m_selectedItem).Find(L"ID")) { return; }
 
 		CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance;
 
@@ -239,7 +246,6 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 		nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
 		drivenDistance = m_treeCtrl.GetItemText(nextChild);
 		drivenDistance.Replace(L"Driven distance: ", L"");
-
 
 		auto mainFrame = AfxGetApp()->m_pMainWnd;
 		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
