@@ -49,10 +49,13 @@ public:
 								 CString fuelRemaining, CString drivenDistance);
 
 private:
-	CTreeCtrl& m_tree = GetTreeCtrl();
+	void SaveDataToFields();
+
+	CTreeCtrl& m_treeCtrl = GetTreeCtrl();
 	HTREEITEM m_hItem;
 	HTREEITEM m_hCar;
 	HTREEITEM m_selectedItem;
+
 	CString m_ID;
 	CString m_Name;
 	CString m_MaxFuelCapacity;
@@ -64,6 +67,7 @@ public:
 	afx_msg void OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnVehiclemenuDelete();
 	afx_msg void OnVehiclemenuEdit();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 

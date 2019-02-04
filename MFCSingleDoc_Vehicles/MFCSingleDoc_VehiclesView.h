@@ -42,7 +42,12 @@ protected:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
 public:
-	//afx_msg void OnToolsAddvehicle();
+	void ShowSelectedItemInList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage,
+								CString fuelRemaining, CString drivenDistance);
+
+private:
+	CListCtrl& m_listCtrl = GetListCtrl();
+
 };
 
 #ifndef _DEBUG  // debug version in MFCSingleDoc_VehiclesView.cpp

@@ -8,6 +8,10 @@
 #include "MFCSingleDoc_VehiclesDoc.h"
 #include "LeftView.h"
 
+#include "CConfigureVehicleDlg.h"
+#include "MainFrm.h"
+#include "MFCSingleDoc_VehiclesView.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -22,6 +26,7 @@ BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	ON_NOTIFY_REFLECT(NM_RCLICK, &CLeftView::OnNMRClick)
 	ON_COMMAND(ID_VEHICLEMENU_DELETE, &CLeftView::OnVehiclemenuDelete)
 	ON_COMMAND(ID_VEHICLEMENU_EDIT, &CLeftView::OnVehiclemenuEdit)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -50,7 +55,8 @@ void CLeftView::OnInitialUpdate()
 	// TODO: You may populate your TreeView with items by directly accessing
 	//  its tree control through a call to GetTreeCtrl().
 	
-	m_hItem = m_tree.InsertItem(L"Car List", TVI_ROOT);
+	m_hItem = m_treeCtrl.InsertItem(L"Car List", TVI_ROOT);
+	this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
 }
 
 
@@ -80,18 +86,17 @@ CMFCSingleDocVehiclesDoc* CLeftView::GetDocument() // non-debug version is inlin
 
 void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
-	m_hCar = m_tree.InsertItem(L"ID: " + id		+ " Name: " + name, m_hItem);
-	m_tree.InsertItem(L"Max fuel capacitiy: "	+ maxFuelCapacity, m_hCar);
-	m_tree.InsertItem(L"Fuel usage: "			+ fuelUsage, m_hCar);
-	m_tree.InsertItem(L"Fuel remaining: "		+ fuelRemaining, m_hCar);
-	m_tree.InsertItem(L"Driven distance: "		+ drivenDistance, m_hCar);
+	m_hCar = m_treeCtrl.InsertItem(L"ID: " + id		+ " Name: " + name, m_hItem);
+	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity, m_hCar);
+	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage, m_hCar);
+	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, m_hCar);
+	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance, m_hCar);
 }
 
 
 void CLeftView::OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	CPoint ptMouse, ptPopup;
-	CTreeCtrl& treeCtrl = GetTreeCtrl();
 	POINT sMouse;
 	UINT uFlags;
 
@@ -103,23 +108,24 @@ void CLeftView::OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult)
 
 	// Find the item it is over (ignore if not over label or bitmap), and 
 	// select it as if we had clicked it with the left mouse button.
-	m_selectedItem = treeCtrl.HitTest(ptMouse, &uFlags);
+	m_selectedItem = m_treeCtrl.HitTest(ptMouse, &uFlags);
 
 	// check if root item is selected item // it it is root item return
-	HTREEITEM rootItem = treeCtrl.GetRootItem();
-	if (rootItem == m_selectedItem) return;
+	HTREEITEM rootItem = m_treeCtrl.GetRootItem();
+	if (rootItem == m_selectedItem) { pResult = 0;  return; }
 
 	if (m_selectedItem != NULL && (uFlags & TVHT_ONITEM))
 	{
-		treeCtrl.SelectItem(m_selectedItem);
+		m_treeCtrl.SelectItem(m_selectedItem);
 
 		// Id is not included its not a child of root // returns
-		if (treeCtrl.GetItemText(m_selectedItem).Find(L"ID")) 
+		if (m_treeCtrl.GetItemText(m_selectedItem).Find(L"ID")) 
 		{
 			AfxMessageBox(L"Select a root entry!");
+			*pResult = 0;
 			return;
 		}
-		
+
 		//if you want to popup menu this below: 
 		CMenu menu;
 		// menu.LoadMenu(IDR_MAINFRAME);
@@ -136,11 +142,112 @@ void CLeftView::OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CLeftView::OnVehiclemenuDelete()
 {
-	if(m_selectedItem != NULL) m_tree.DeleteItem(m_selectedItem);
+	if(m_selectedItem != NULL) m_treeCtrl.DeleteItem(m_selectedItem);
 }
 
 
 void CLeftView::OnVehiclemenuEdit()
 {
-	// TODO: Add your command handler code here
+	CConfigureVehicleDlg configureVehicle;
+	CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance;
+
+	CString nameAndID = m_treeCtrl.GetItemText(m_selectedItem);
+	int pos = nameAndID.Find(L"Name: ");
+	name = nameAndID.Mid(pos+6);
+	nameAndID.Delete(pos, nameAndID.GetLength() - pos);
+	nameAndID.Delete(0, 4);
+	id = nameAndID;
+
+	auto firstChild = m_treeCtrl.GetNextItem(m_selectedItem, TVGN_CHILD);
+	maxFuelCapacity = m_treeCtrl.GetItemText(firstChild);
+
+	auto nextChild = m_treeCtrl.GetNextSiblingItem(firstChild);
+	fuelUsage = m_treeCtrl.GetItemText(nextChild);
+
+	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+	fuelRemaining = m_treeCtrl.GetItemText(nextChild);
+
+	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+	drivenDistance = m_treeCtrl.GetItemText(nextChild);
+
+	configureVehicle.m_Name = name;
+	configureVehicle.m_ID = id;
+	configureVehicle.m_MaxFuelCapacity = maxFuelCapacity;
+	configureVehicle.m_FuelUsage = fuelUsage;
+	configureVehicle.m_FuelRemaining = fuelRemaining;
+	configureVehicle.m_DrivenDistance = drivenDistance;
+
+	if(configureVehicle.DoModal() == IDOK)
+	{
+		
+	}
+}
+
+
+void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	CPoint ptMouse, ptPopup;
+	POINT sMouse;
+	UINT uFlags;
+
+	// Get the mouse position relative to the tree view.
+	::GetCursorPos(&sMouse);
+	ptMouse = sMouse;
+	ptPopup = ptMouse;
+	ScreenToClient(&ptMouse);
+
+	// Find the item it is over (ignore if not over label or bitmap), and 
+	// select it as if we had clicked it with the left mouse button.
+	m_selectedItem = m_treeCtrl.HitTest(ptMouse, &uFlags);
+
+	// check if root item is selected item // it it is root item return
+	HTREEITEM rootItem = m_treeCtrl.GetRootItem();
+	if (rootItem == m_selectedItem) { return; }
+
+	if (m_selectedItem != NULL && (uFlags & TVHT_ONITEM))
+	{
+		m_treeCtrl.SelectItem(m_selectedItem);
+
+		// Id is not included its not a child of root // returns
+		if (m_treeCtrl.GetItemText(m_selectedItem).Find(L"ID"))
+		{
+			AfxMessageBox(L"Select a root entry!");
+			return;
+		}
+
+		CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance;
+
+		CString nameAndID = m_treeCtrl.GetItemText(m_selectedItem);
+		int pos = nameAndID.Find(L"Name: ");
+		name = nameAndID.Mid(pos + 6);
+		nameAndID.Delete(pos, nameAndID.GetLength() - pos);
+		nameAndID.Delete(0, 4);
+		id = nameAndID;
+
+		auto firstChild = m_treeCtrl.GetNextItem(m_selectedItem, TVGN_CHILD);
+		maxFuelCapacity = m_treeCtrl.GetItemText(firstChild);
+		maxFuelCapacity.Replace(L"Max fuel capacity:", L"");
+
+		auto nextChild = m_treeCtrl.GetNextSiblingItem(firstChild);
+		fuelUsage = m_treeCtrl.GetItemText(nextChild);
+		fuelUsage.Replace(L"Fuel usage: ", L"");
+
+		nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+		fuelRemaining = m_treeCtrl.GetItemText(nextChild);
+		fuelRemaining.Replace(L"Fuel remaining: ", L"");
+
+		nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+		drivenDistance = m_treeCtrl.GetItemText(nextChild);
+		drivenDistance.Replace(L"Driven distance: ", L"");
+
+
+		auto mainFrame = AfxGetApp()->m_pMainWnd;
+		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
+		auto rightView = pMainWnd->GetRightPane();
+		rightView->ShowSelectedItemInList(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance);
+
+	}
+
+	CTreeView::OnLButtonDown(nFlags, point);
+
 }

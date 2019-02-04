@@ -1,0 +1,17 @@
+File,LOC,SLOC-P,SLOC-L,MVG,BLOC,C&SLOC,CLOC,CWORD,HCLOC,HCWORD
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\CConfigureVehicleDlg.cpp,47,30,10,0,13,1,4,10,2,4
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\LeftView.cpp,254,163,109,10,67,3,24,212,2,7
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\MainFrm.cpp,488,344,207,61,107,7,37,281,2,7
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles.cpp,219,113,61,8,58,3,48,340,2,9
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\MFCSingleDoc_VehiclesDoc.cpp,139,82,36,6,37,2,20,103,2,7
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\MFCSingleDoc_VehiclesView.cpp,154,87,43,2,37,10,30,171,2,7
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\stdafx.cpp,9,1,0,0,5,0,3,23,3,23
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\CConfigureVehicleDlg.h,31,21,13,0,8,2,2,8,0,0
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\LeftView.h,79,49,27,0,21,3,9,31,2,7
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\MainFrm.h,66,42,26,0,17,3,7,24,2,7
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles.h,41,21,12,0,13,1,7,22,2,9
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\MFCSingleDoc_VehiclesDoc.h,52,29,11,0,15,3,8,31,2,7
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\MFCSingleDoc_VehiclesView.h,58,36,16,0,15,3,7,28,2,7
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\resource.h,56,48,0,0,2,0,6,16,4,10
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\stdafx.h,57,28,0,0,25,9,4,79,3,22
+D:\_Projects\_Cpp\Kurs\MFCSingleDoc_Vehicles\MFCSingleDoc_Vehicles\targetver.h,9,2,0,0,4,0,3,37,0,0

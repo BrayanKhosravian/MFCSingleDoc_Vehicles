@@ -27,7 +27,6 @@ BEGIN_MESSAGE_MAP(CMFCSingleDocVehiclesView, CListView)
 	ON_WM_STYLECHANGED()
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
-	//ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMFCSingleDocVehiclesView::OnToolsAddvehicle)
 END_MESSAGE_MAP()
 
 // CMFCSingleDocVehiclesView construction/destruction
@@ -54,7 +53,42 @@ void CMFCSingleDocVehiclesView::OnInitialUpdate()
 {
 	CListView::OnInitialUpdate();
 
+	// set styles
+	m_listCtrl.ModifyStyle(LVS_TYPEMASK, LVS_REPORT);
+	m_listCtrl.SetExtendedStyle(m_listCtrl.GetExtendedStyle() | LVS_EX_GRIDLINES);
+	
+	// Insert columns
+	m_listCtrl.InsertColumn(0, L"ID", LVCFMT_LEFT, -1, 0);
+	m_listCtrl.InsertColumn(1, L"Name", LVCFMT_LEFT, -1, 1);
+	m_listCtrl.InsertColumn(2, L"Max fuel capacity", LVCFMT_LEFT, -1, 2);
+	m_listCtrl.InsertColumn(3, L"Fuel usage", LVCFMT_LEFT, -1, 3);
+	m_listCtrl.InsertColumn(4, L"Fuel remaining", LVCFMT_LEFT, -1, 4);
+	m_listCtrl.InsertColumn(5, L"Driven distance", LVCFMT_LEFT, -1, 5);
 
+	// set with
+	m_listCtrl.SetColumnWidth(0, 80);
+	m_listCtrl.SetColumnWidth(1, 80);
+	m_listCtrl.SetColumnWidth(2, 120);
+	m_listCtrl.SetColumnWidth(3, 120);
+	m_listCtrl.SetColumnWidth(4, 120);
+	m_listCtrl.SetColumnWidth(5, 120);
+
+	
+	
+	/*// Insert second row
+	index = m_listCtrl.InsertItem(LVIF_TEXT, 1, L"2", 0, 0, 0, NULL);
+	m_listCtrl.SetItem(index, 1, LVIF_TEXT, L"2", 0, 0, 0, NULL);
+
+	index = m_listCtrl.InsertItem(LVIF_TEXT, 2, L"3", 0, 0, 0, NULL);
+	m_listCtrl.SetItem(index, 1, LVIF_TEXT, L"3", 0, 0, 0, NULL);
+
+	// Set column widths (an optional nice touch)
+	m_listCtrl.SetColumnWidth(0, LVSCW_AUTOSIZE);
+	m_listCtrl.SetColumnWidth(1, LVSCW_AUTOSIZE);
+	*/
+	
+
+	//listCtrl.SetItemCount(500);
 	// TODO: You may populate your ListView with items by directly accessing
 	//  its list control through a call to GetListCtrl().
 }
@@ -70,6 +104,22 @@ void CMFCSingleDocVehiclesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #ifndef SHARED_HANDLERS
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
+}
+
+void CMFCSingleDocVehiclesView::ShowSelectedItemInList(CString id, CString name, CString maxFuelCapacity, 
+														   CString fuelUsage, CString fuelRemaining, CString drivenDistance)
+{
+	m_listCtrl.DeleteAllItems();
+
+	// insert item
+	int index;
+	index = m_listCtrl.InsertItem(LVIF_TEXT, 0, id, 0, 0, 0, NULL);				// ID
+	m_listCtrl.SetItem(index, 1, LVIF_TEXT, name, 0, 0, 0, NULL);				// name
+	m_listCtrl.SetItem(index, 2, LVIF_TEXT, maxFuelCapacity, 0, 0, 0, NULL);	// max fuel capacity
+	m_listCtrl.SetItem(index, 3, LVIF_TEXT, fuelUsage, 0, 0, 0, NULL);			// fuel usage
+	m_listCtrl.SetItem(index, 4, LVIF_TEXT, fuelRemaining, 0, 0, 0, NULL);		// fuel remaining
+	m_listCtrl.SetItem(index, 5, LVIF_TEXT, drivenDistance, 0, 0, 0, NULL);		// driven distance
+
 }
 
 
@@ -101,13 +151,3 @@ void CMFCSingleDocVehiclesView::OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpS
 	CListView::OnStyleChanged(nStyleType, lpStyleStruct);
 }
 
-//
-//void CMFCSingleDocVehiclesView::OnToolsAddvehicle()
-//{
-//	CConfigureVehicleDlg addVehicleDlg;
-//	if(addVehicleDlg.DoModal() == IDOK)
-//	{
-//
-//		// InsertVehicleToListView(L"test",L"1",L"2", L"3", L"4", L"5");
-//	}
-//}

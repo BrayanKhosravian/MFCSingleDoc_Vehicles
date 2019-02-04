@@ -34,6 +34,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
 	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMainFrame::OnToolsAddvehicle)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -165,7 +166,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,
 	if (!m_wndSplitter.CreateStatic(this, 1, 2))
 		return FALSE;
 
-	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CLeftView), CSize(100, 100), pContext) ||
+	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CLeftView), CSize(250, 100), pContext) ||
 		!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CMFCSingleDocVehiclesView), CSize(100, 100), pContext))
 	{
 		m_wndSplitter.DestroyWindow();
@@ -460,7 +461,6 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 }
 
 
-
 void CMainFrame::OnToolsAddvehicle()
 {
 	CConfigureVehicleDlg vehicleDialog;
@@ -478,4 +478,12 @@ void CMainFrame::OnToolsAddvehicle()
 		
 	}
 	
+}
+
+
+void CMainFrame::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+	int i = 0;
+	// CFrameWndEx::OnLButtonDown(nFlags, point);
 }
