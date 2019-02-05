@@ -57,9 +57,10 @@ void CLeftView::OnInitialUpdate()
 
 	m_ImageList.Create(16, 16, ILC_MASK, 0, 4);
 	m_ImageList.Add(AfxGetApp()->LoadIcon(IDR_MAINFRAME));
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON1));
 	m_treeCtrl.SetImageList(&m_ImageList, TVSIL_NORMAL);
 	
-	m_hItem = m_treeCtrl.InsertItem(L"Car List",IDR_MAINFRAME, IDR_MAINFRAME, TVI_ROOT);
+	m_hItem = m_treeCtrl.InsertItem(L"Car List",2,2, TVI_ROOT);
 	this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
 }
 
@@ -92,11 +93,11 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 {
 	//HICON image = m_ImageList.ExtractIconW(0);
 	
-	m_hCar = m_treeCtrl.InsertItem(L"ID: " + id		+ " Name: " + name, m_hItem);
-	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity, IDR_MAINFRAME, IDR_MAINFRAME, m_hCar);
-	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage, IDR_MAINFRAME, IDR_MAINFRAME, m_hCar);
-	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, IDR_MAINFRAME, IDR_MAINFRAME, m_hCar);
-	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance, IDR_MAINFRAME, IDR_MAINFRAME, m_hCar);
+	m_hCar = m_treeCtrl.InsertItem(L"ID: " + id		+ " Name: " + name,0,0 ,m_hItem);
+	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity,2,2, m_hCar);
+	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage,2,2, m_hCar);
+	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, 2,2, m_hCar);
+	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance,2,2, m_hCar);
 }
 
 
