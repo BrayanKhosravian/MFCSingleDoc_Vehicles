@@ -217,6 +217,8 @@
     <ResourceCompile Include="MFCSingleDocVehicles.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\icon1.ico" />
     <Image Include="res\MFCSingleDoc_Vehicles.ico" />
     <Image Include="res\MFCSingleDoc_VehiclesDoc.ico" />
     <Image Include="res\Toolbar.bmp" />

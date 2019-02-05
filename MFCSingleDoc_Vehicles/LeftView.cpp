@@ -54,8 +54,12 @@ void CLeftView::OnInitialUpdate()
 
 	// TODO: You may populate your TreeView with items by directly accessing
 	//  its tree control through a call to GetTreeCtrl().
+
+	m_ImageList.Create(16, 16, ILC_MASK, 0, 4);
+	m_ImageList.Add(AfxGetApp()->LoadIcon(IDR_MAINFRAME));
+	m_treeCtrl.SetImageList(&m_ImageList, TVSIL_NORMAL);
 	
-	m_hItem = m_treeCtrl.InsertItem(L"Car List", TVI_ROOT);
+	m_hItem = m_treeCtrl.InsertItem(L"Car List",IDR_MAINFRAME, IDR_MAINFRAME, TVI_ROOT);
 	this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
 }
 
@@ -86,11 +90,13 @@ CMFCSingleDocVehiclesDoc* CLeftView::GetDocument() // non-debug version is inlin
 
 void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
+	//HICON image = m_ImageList.ExtractIconW(0);
+	
 	m_hCar = m_treeCtrl.InsertItem(L"ID: " + id		+ " Name: " + name, m_hItem);
-	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity, m_hCar);
-	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage, m_hCar);
-	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, m_hCar);
-	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance, m_hCar);
+	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity, IDR_MAINFRAME, IDR_MAINFRAME, m_hCar);
+	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage, IDR_MAINFRAME, IDR_MAINFRAME, m_hCar);
+	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, IDR_MAINFRAME, IDR_MAINFRAME, m_hCar);
+	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance, IDR_MAINFRAME, IDR_MAINFRAME, m_hCar);
 }
 
 
@@ -143,6 +149,13 @@ void CLeftView::OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult)
 void CLeftView::OnVehiclemenuDelete()
 {
 	if(m_selectedItem != NULL) m_treeCtrl.DeleteItem(m_selectedItem);
+
+	auto mainFrame = AfxGetApp()->m_pMainWnd;
+	CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
+	auto rightView = pMainWnd->GetRightPane();
+
+	rightView->DeleteAllItems();
+
 }
 
 
@@ -191,6 +204,11 @@ void CLeftView::OnVehiclemenuEdit()
 		fuelRemaining = configureVehicleDialog.m_FuelRemaining;
 		drivenDistance = configureVehicleDialog.m_DrivenDistance;
 		this->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
+
+		auto mainFrame = AfxGetApp()->m_pMainWnd;
+		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
+		auto rightView = pMainWnd->GetRightPane();
+		rightView->ShowSelectedItemInList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
 	}
 }
 

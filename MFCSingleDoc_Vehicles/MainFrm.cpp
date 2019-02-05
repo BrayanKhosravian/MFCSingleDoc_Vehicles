@@ -34,7 +34,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
 	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMainFrame::OnToolsAddvehicle)
-	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -478,12 +477,4 @@ void CMainFrame::OnToolsAddvehicle()
 		
 	}
 	
-}
-
-
-void CMainFrame::OnLButtonDown(UINT nFlags, CPoint point)
-{
-	// TODO: Add your message handler code here and/or call default
-	int i = 0;
-	// CFrameWndEx::OnLButtonDown(nFlags, point);
 }

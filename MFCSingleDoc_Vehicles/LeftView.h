@@ -4,6 +4,7 @@
 
 
 #pragma once
+//#include "MFCSingleDoc_VehiclesView.h"
 
 class CMFCSingleDocVehiclesDoc;
 
@@ -62,6 +63,8 @@ private:
 	CString m_FuelUsage;
 	CString m_FuelRemaining;
 	CString m_DrivenDistance;
+
+	CImageList m_ImageList;
 
 public:
 	afx_msg void OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult);

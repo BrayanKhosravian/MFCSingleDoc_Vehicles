@@ -32,6 +32,7 @@
 #define IDS_EDIT_MENU                   306
 #define IDD_ConfigureVehicle            310
 #define IDR_VehicleMenu                 313
+#define IDI_ICON1                       318
 #define IDC_EDIT_ID                     1000
 #define IDC_EDIT_Name                   1001
 #define IDC_EDIT_MaxFuelCapacity        1002
@@ -47,7 +48,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        316
+#define _APS_NEXT_RESOURCE_VALUE        319
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           310

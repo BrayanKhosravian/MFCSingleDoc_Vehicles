@@ -122,6 +122,11 @@ void CMFCSingleDocVehiclesView::ShowSelectedItemInList(CString id, CString name,
 
 }
 
+void CMFCSingleDocVehiclesView::DeleteAllItems()
+{
+	m_listCtrl.DeleteAllItems();
+}
+
 
 // CMFCSingleDocVehiclesView diagnostics
 
