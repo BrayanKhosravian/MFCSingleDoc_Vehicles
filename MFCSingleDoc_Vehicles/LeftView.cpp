@@ -86,7 +86,6 @@ CMFCSingleDocVehiclesDoc* CLeftView::GetDocument() // non-debug version is inlin
 }
 #endif //_DEBUG
 
-
 // custom implementations
 
 void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
