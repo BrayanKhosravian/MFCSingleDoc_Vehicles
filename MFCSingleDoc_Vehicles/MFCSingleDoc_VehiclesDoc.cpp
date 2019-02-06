@@ -119,6 +119,7 @@ void CMFCSingleDocVehiclesDoc::SetSearchContent(const CString& value)
 	}
 }
 
+
 #endif // SHARED_HANDLERS
 
 // CMFCSingleDocVehiclesDoc diagnostics
@@ -136,4 +137,8 @@ void CMFCSingleDocVehiclesDoc::Dump(CDumpContext& dc) const
 #endif //_DEBUG
 
 
-// CMFCSingleDocVehiclesDoc commands
+void CMFCSingleDocVehiclesDoc::AddVehicleToSerialzationList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
+{
+	m_vehicles.AddTail(new CVehicleSerialization(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
+}
+

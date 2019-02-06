@@ -4,6 +4,7 @@
 
 
 #pragma once
+#include "CVehicleSerialization.h"
 
 
 class CMFCSingleDocVehiclesDoc : public CDocument
@@ -45,7 +46,10 @@ protected:
 	// Helper function that sets search content for a Search Handler
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
-public:
-	
 
+// custom implementations	
+public:
+	void AddVehicleToSerialzationList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
+private:
+	CList<CVehicleSerialization*, CVehicleSerialization*> m_vehicles;
 };

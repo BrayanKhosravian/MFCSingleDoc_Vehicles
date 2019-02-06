@@ -97,6 +97,9 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, 2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance,2,2, m_hCar);
+
+	auto document = GetDocument();
+	document->AddVehicleToSerialzationList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
 }
 
 

@@ -7,6 +7,16 @@ CVehicleSerialization::CVehicleSerialization()
 {
 }
 
+CVehicleSerialization::CVehicleSerialization(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
+{
+	m_id = id;
+	m_name = name;
+	m_maxFuelCapacity = maxFuelCapacity;
+	m_fuelUsage = fuelUsage;
+	m_fuelRemaining = fuelRemaining;
+	m_drivenDistance = drivenDistance;
+}
+
 
 CVehicleSerialization::~CVehicleSerialization()
 {
