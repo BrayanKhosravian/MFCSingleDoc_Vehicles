@@ -49,7 +49,7 @@ protected:
 
 // custom implementations	
 public:
-	void AddVehicleToSerialzationList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
+	void AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
 private:
-	CList<CVehicleSerialization*, CVehicleSerialization*> m_vehicles;
+	CList<CVehicleSerialization*, CVehicleSerialization*> m_serialList;
 };

@@ -60,10 +60,28 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: add storing code here
+
+		// m_serialList.Serialize(ar);
+
+		for(int i = 0; i < m_serialList.GetSize(); i++)
+		{
+			auto position = m_serialList.FindIndex(i);
+			m_serialList.GetAt(position)->Serialize(ar);
+		}
+
+		/*
+		CFile file;
+		BOOL test = file.Open(ar.m_strFileName, CFile::modeCreate | CFile::modeWrite);
+		CArchive archive(&file, CArchive::store);
+		m_serialList.Serialize(archive);
+		archive.Close();
+		file.Close();
+		*/
 	}
 	else
 	{
 		// TODO: add loading code here
+		m_serialList.Serialize(ar);
 	}
 }
 
@@ -137,8 +155,8 @@ void CMFCSingleDocVehiclesDoc::Dump(CDumpContext& dc) const
 #endif //_DEBUG
 
 
-void CMFCSingleDocVehiclesDoc::AddVehicleToSerialzationList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
+void CMFCSingleDocVehiclesDoc::AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
-	m_vehicles.AddTail(new CVehicleSerialization(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
+	m_serialList.AddTail(new CVehicleSerialization(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
 }
 

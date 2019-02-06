@@ -4,7 +4,8 @@ class CVehicleSerialization : public CObject
 public:
 	DECLARE_SERIAL(CVehicleSerialization)
 	CVehicleSerialization();
-	CVehicleSerialization(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
+	CVehicleSerialization(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, 
+						  CString fuelRemaining, CString drivenDistance);
 	virtual ~CVehicleSerialization();
 
 	virtual void Serialize(CArchive& archive);
