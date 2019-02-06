@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CConfigureVehicleDlg.h" />
+    <ClInclude Include="CVehicleSerialization.h" />
     <ClInclude Include="LeftView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MFCSingleDoc_Vehicles.h" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CConfigureVehicleDlg.cpp" />
+    <ClCompile Include="CVehicleSerialization.cpp" />
     <ClCompile Include="LeftView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MFCSingleDoc_Vehicles.cpp" />

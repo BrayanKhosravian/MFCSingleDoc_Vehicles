@@ -42,6 +42,9 @@
     <ClInclude Include="CConfigureVehicleDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CVehicleSerialization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCSingleDoc_Vehicles.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CConfigureVehicleDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVehicleSerialization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
