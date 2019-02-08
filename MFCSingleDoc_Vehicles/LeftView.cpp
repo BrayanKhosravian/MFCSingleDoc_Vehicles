@@ -39,6 +39,7 @@ CLeftView::CLeftView()
 
 CLeftView::~CLeftView()
 {
+
 }
 
 BOOL CLeftView::PreCreateWindow(CREATESTRUCT& cs)
@@ -55,13 +56,17 @@ void CLeftView::OnInitialUpdate()
 	// TODO: You may populate your TreeView with items by directly accessing
 	//  its tree control through a call to GetTreeCtrl().
 
-	m_ImageList.Create(16, 16, ILC_MASK, 0, 4);
-	m_ImageList.Add(AfxGetApp()->LoadIcon(IDR_MAINFRAME));
-	m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON1));
-	m_treeCtrl.SetImageList(&m_ImageList, TVSIL_NORMAL);
+	if(m_ImageList == NULL)
+	{
+		m_ImageList.Create(16, 16, ILC_MASK, 0, 4);
+		m_ImageList.Add(AfxGetApp()->LoadIcon(IDR_MAINFRAME));
+		m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON1));
+		m_treeCtrl.SetImageList(&m_ImageList, TVSIL_NORMAL);
+	}
 	
 	m_hItem = m_treeCtrl.InsertItem(L"Car List",2,2, TVI_ROOT);
 	this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
+
 }
 
 

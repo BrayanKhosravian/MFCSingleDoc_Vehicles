@@ -61,27 +61,37 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 	{
 		// TODO: add storing code here
 
-		// m_serialList.Serialize(ar);
+		m_objectCount = m_serialList.GetSize();
+		ar << m_objectCount;
 
-		for(int i = 0; i < m_serialList.GetSize(); i++)
+		for(size_t i = 0; i < m_serialList.GetSize(); i++)
 		{
 			auto position = m_serialList.FindIndex(i);
 			m_serialList.GetAt(position)->Serialize(ar);
+
 		}
 
-		/*
-		CFile file;
-		BOOL test = file.Open(ar.m_strFileName, CFile::modeCreate | CFile::modeWrite);
-		CArchive archive(&file, CArchive::store);
-		m_serialList.Serialize(archive);
-		archive.Close();
-		file.Close();
-		*/
 	}
 	else
 	{
 		// TODO: add loading code here
-		m_serialList.Serialize(ar);
+
+		m_serialList.RemoveAll();
+
+		CVehicleSerialization* vehicle;
+
+		ar >> m_objectCount;
+
+		for (size_t i = 0; i < m_objectCount; i++)
+		{
+			
+			// auto position = m_serialList.FindIndex(i);
+			// m_serialList.GetAt(position)->Serialize(ar);
+			vehicle = new CVehicleSerialization();
+			vehicle->Serialize(ar);
+			m_serialList.AddTail(vehicle);
+			
+		}
 	}
 }
 

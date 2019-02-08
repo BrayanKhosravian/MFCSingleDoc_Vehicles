@@ -56,6 +56,7 @@ private:
 	HTREEITEM m_hItem;
 	HTREEITEM m_hCar;
 	HTREEITEM m_selectedItem;
+	CImageList m_ImageList;
 
 	CString m_ID;
 	CString m_Name;
@@ -64,7 +65,6 @@ private:
 	CString m_FuelRemaining;
 	CString m_DrivenDistance;
 
-	CImageList m_ImageList;
 
 public:
 	afx_msg void OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult);
