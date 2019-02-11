@@ -60,6 +60,7 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: add storing code here
+		
 
 		m_objectCount = m_serialList.GetSize();
 		ar << m_objectCount;
@@ -78,16 +79,13 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 
 		m_serialList.RemoveAll();
 
-		CVehicleSerialization* vehicle;
+		CVehicle* vehicle;
 
 		ar >> m_objectCount;
 
 		for (size_t i = 0; i < m_objectCount; i++)
 		{
-			
-			// auto position = m_serialList.FindIndex(i);
-			// m_serialList.GetAt(position)->Serialize(ar);
-			vehicle = new CVehicleSerialization();
+			vehicle = new CVehicle();
 			vehicle->Serialize(ar);
 			m_serialList.AddTail(vehicle);
 			
@@ -167,6 +165,6 @@ void CMFCSingleDocVehiclesDoc::Dump(CDumpContext& dc) const
 
 void CMFCSingleDocVehiclesDoc::AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
-	m_serialList.AddTail(new CVehicleSerialization(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
+	m_serialList.AddTail(new CVehicle(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
 }
 

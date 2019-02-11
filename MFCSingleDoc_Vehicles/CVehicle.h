@@ -1,12 +1,12 @@
 #pragma once
-class CVehicleSerialization : public CObject
+class CVehicle : public CObject
 {
 public:
-	DECLARE_SERIAL(CVehicleSerialization)
-	CVehicleSerialization();
-	CVehicleSerialization(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, 
+	DECLARE_SERIAL(CVehicle)
+	CVehicle();
+	CVehicle(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, 
 						  CString fuelRemaining, CString drivenDistance);
-	virtual ~CVehicleSerialization();
+	virtual ~CVehicle();
 
 	virtual void Serialize(CArchive& archive);
 

@@ -4,7 +4,7 @@
 
 
 #pragma once
-#include "CVehicleSerialization.h"
+#include "CVehicle.h"
 
 
 class CMFCSingleDocVehiclesDoc : public CDocument
@@ -51,6 +51,6 @@ protected:
 public:
 	void AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
 private:
-	CList<CVehicleSerialization*, CVehicleSerialization*> m_serialList;
+	CList<CVehicle*, CVehicle*> m_serialList;
 	size_t m_objectCount = 0;
 };

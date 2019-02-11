@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CMFCSingleDocVehiclesView, CListView)
 	ON_WM_STYLECHANGED()
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_MESSAGE(WM_PRINT, OnPrint)
 END_MESSAGE_MAP()
 
 // CMFCSingleDocVehiclesView construction/destruction
@@ -106,6 +107,13 @@ void CMFCSingleDocVehiclesView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #endif
 }
 
+LRESULT CMFCSingleDocVehiclesView::OnPrint(WPARAM wp, LPARAM lp)
+{
+	CDC* dc = CDC::FromHandle((HDC)wp);
+
+	return Default();
+}
+
 void CMFCSingleDocVehiclesView::ShowSelectedItemInList(CString id, CString name, CString maxFuelCapacity, 
 														   CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
@@ -155,4 +163,8 @@ void CMFCSingleDocVehiclesView::OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpS
 	//TODO: add code to react to the user changing the view style of your window
 	CListView::OnStyleChanged(nStyleType, lpStyleStruct);
 }
+
+
+
+
 

@@ -40,6 +40,7 @@ protected:
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg LRESULT OnPrint(WPARAM wp, LPARAM lp);
 	DECLARE_MESSAGE_MAP()
 public:
 	void ShowSelectedItemInList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage,
@@ -49,6 +50,7 @@ public:
 private:
 	CListCtrl& m_listCtrl = GetListCtrl();
 
+	//virtual void OnPrint(CDC* pDC, CPrintInfo* pInfo);
 };
 
 #ifndef _DEBUG  // debug version in MFCSingleDoc_VehiclesView.cpp

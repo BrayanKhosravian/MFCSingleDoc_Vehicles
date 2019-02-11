@@ -78,8 +78,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		!m_wndToolBar.LoadToolBar(theApp.m_bHiColorIcons ? IDR_MAINFRAME_256 : IDR_MAINFRAME))
 	{
 		TRACE0("Failed to create toolbar\n");
+
 		return -1;      // fail to create
 	}
+
 
 	CString strToolBarName;
 	bNameValid = strToolBarName.LoadString(IDS_TOOLBAR_STANDARD);
@@ -107,7 +109,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndMenuBar);
 	DockPane(&m_wndToolBar);
-
 
 	// enable Visual Studio 2005 style docking window behavior
 	CDockingManager::SetDockingMode(DT_SMART);
@@ -152,8 +153,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	lstBasicCommands.AddTail(ID_VIEW_APPLOOK_OFF_2007_BLACK);
 	lstBasicCommands.AddTail(ID_VIEW_APPLOOK_OFF_2007_AQUA);
 	lstBasicCommands.AddTail(ID_VIEW_APPLOOK_WINDOWS_7);
+	lstBasicCommands.AddTail(ID_FILE_PRINT);	// test
 
 	CMFCToolBar::SetBasicCommands(lstBasicCommands);
+
+	
 
 	return 0;
 }

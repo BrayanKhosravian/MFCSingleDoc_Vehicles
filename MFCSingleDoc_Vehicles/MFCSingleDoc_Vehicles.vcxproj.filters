@@ -42,7 +42,7 @@
     <ClInclude Include="CConfigureVehicleDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CVehicleSerialization.h">
+    <ClInclude Include="CVehicle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,7 +68,7 @@
     <ClCompile Include="CConfigureVehicleDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CVehicleSerialization.cpp">
+    <ClCompile Include="CVehicle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
