@@ -45,6 +45,9 @@
     <ClInclude Include="CVehicle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CFileManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCSingleDoc_Vehicles.cpp">
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CVehicle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFileManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

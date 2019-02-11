@@ -15,6 +15,7 @@
 #include "LeftView.h"
 #include "MainFrm.h"
 #include "MFCSingleDoc_VehiclesView.h"
+#include "CFileManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -69,11 +70,14 @@ BOOL CMFCSingleDocVehiclesDoc::OnNewDocument()
 
 void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 {
+	CFileManager fileManager;
+
 	if (ar.IsStoring())
 	{
 		// TODO: add storing code here
-		
+		fileManager.WriteVehiclesToFile(*m_serialList, ar.m_strFileName);
 
+		/*
 		m_objectCount = m_serialList->GetSize();
 		ar << m_objectCount;
 
@@ -83,6 +87,7 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 			m_serialList->GetAt(position)->Serialize(ar);
 
 		}
+		*/
 
 	}
 	else
