@@ -71,6 +71,8 @@ public:
 	afx_msg void OnVehiclemenuDelete();
 	afx_msg void OnVehiclemenuEdit();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+
+	void clearLeftView();
 };
 
 

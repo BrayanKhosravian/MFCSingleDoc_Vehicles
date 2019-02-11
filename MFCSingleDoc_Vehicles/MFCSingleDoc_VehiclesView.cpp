@@ -135,6 +135,18 @@ void CMFCSingleDocVehiclesView::DeleteAllItems()
 	m_listCtrl.DeleteAllItems();
 }
 
+void CMFCSingleDocVehiclesView::DeleteListView()
+{
+	this->DeleteAllItems();
+	int nColumnCount = m_listCtrl.GetHeaderCtrl()->GetItemCount();
+
+	// Delete all of the columns.
+	for (int i = 0; i < nColumnCount; i++)
+	{
+		m_listCtrl.DeleteColumn(0);
+	}
+}
+
 
 // CMFCSingleDocVehiclesView diagnostics
 

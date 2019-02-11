@@ -46,6 +46,7 @@ public:
 	void ShowSelectedItemInList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage,
 								CString fuelRemaining, CString drivenDistance);
 	void DeleteAllItems();
+	void DeleteListView();
 
 private:
 	CListCtrl& m_listCtrl = GetListCtrl();

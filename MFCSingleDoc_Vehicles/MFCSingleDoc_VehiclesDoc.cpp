@@ -13,6 +13,8 @@
 
 #include <propkey.h>
 #include "LeftView.h"
+#include "MainFrm.h"
+#include "MFCSingleDoc_VehiclesView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -43,10 +45,20 @@ BOOL CMFCSingleDocVehiclesDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
-
+	
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
+	auto mainframe = (CMainFrame*)AfxGetApp()->m_pMainWnd;
+	if(mainframe != NULL)
+	{
+		auto leftPain = mainframe->GetLeftPane();
+		leftPain->clearLeftView();
 
+		auto rightPane = mainframe->GetRightPane();
+		rightPane->DeleteListView();
+		
+	}
+	
 	return TRUE;
 }
 

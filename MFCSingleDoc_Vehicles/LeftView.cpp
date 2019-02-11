@@ -64,8 +64,8 @@ void CLeftView::OnInitialUpdate()
 		m_treeCtrl.SetImageList(&m_ImageList, TVSIL_NORMAL);
 	}
 	
-	m_hItem = m_treeCtrl.InsertItem(L"Car List",2,2, TVI_ROOT);
-	this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
+	m_hItem = m_treeCtrl.InsertItem(L"Vehicle List",2,2, TVI_ROOT);
+	// this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
 
 }
 
@@ -282,4 +282,9 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CTreeView::OnLButtonDown(nFlags, point);
 
+}
+
+void CLeftView::clearLeftView()
+{
+	m_treeCtrl.DeleteAllItems();
 }
