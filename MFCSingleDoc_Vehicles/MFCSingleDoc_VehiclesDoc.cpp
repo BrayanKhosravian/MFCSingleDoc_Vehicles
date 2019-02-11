@@ -62,13 +62,13 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 		// TODO: add storing code here
 		
 
-		m_objectCount = m_serialList.GetSize();
+		m_objectCount = m_serialList->GetSize();
 		ar << m_objectCount;
 
-		for(size_t i = 0; i < m_serialList.GetSize(); i++)
+		for(size_t i = 0; i < m_serialList->GetSize(); i++)
 		{
-			auto position = m_serialList.FindIndex(i);
-			m_serialList.GetAt(position)->Serialize(ar);
+			auto position = m_serialList->FindIndex(i);
+			m_serialList->GetAt(position)->Serialize(ar);
 
 		}
 
@@ -77,7 +77,7 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 	{
 		// TODO: add loading code here
 
-		m_serialList.RemoveAll();
+		m_serialList->RemoveAll();
 
 		CVehicle* vehicle;
 
@@ -87,7 +87,7 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 		{
 			vehicle = new CVehicle();
 			vehicle->Serialize(ar);
-			m_serialList.AddTail(vehicle);
+			m_serialList->AddTail(vehicle);
 			
 		}
 	}
@@ -165,6 +165,6 @@ void CMFCSingleDocVehiclesDoc::Dump(CDumpContext& dc) const
 
 void CMFCSingleDocVehiclesDoc::AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
-	m_serialList.AddTail(new CVehicle(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
+	m_serialList->AddTail(new CVehicle(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
 }
 

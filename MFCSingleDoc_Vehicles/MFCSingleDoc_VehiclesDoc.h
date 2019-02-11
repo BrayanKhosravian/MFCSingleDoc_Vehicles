@@ -50,7 +50,9 @@ protected:
 // custom implementations	
 public:
 	void AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
+	CList<CVehicle*, CVehicle*>* getSerialList() const { return m_serialList; }
+
 private:
-	CList<CVehicle*, CVehicle*> m_serialList;
+	CList<CVehicle*, CVehicle*>* m_serialList = new CList<CVehicle*, CVehicle*>;
 	size_t m_objectCount = 0;
 };
