@@ -88,16 +88,14 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: add loading code here
-
+		this->OnNewDocument();
 		m_serialList->RemoveAll();
-
-		CVehicle* vehicle;
 
 		ar >> m_objectCount;
 
 		for (size_t i = 0; i < m_objectCount; i++)
 		{
-			vehicle = new CVehicle();
+			CVehicle* vehicle = new CVehicle();
 			vehicle->Serialize(ar);
 			m_serialList->AddTail(vehicle);
 			
