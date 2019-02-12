@@ -48,7 +48,7 @@
     <ClInclude Include="CFileManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VehicleCollection.h">
+    <ClInclude Include="CVehicleCollection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,7 +80,7 @@
     <ClCompile Include="CFileManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VehicleCollection.cpp">
+    <ClCompile Include="CVehicleCollection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,14 @@
-Count of registered vehicles: 1
+Count of registered vehicles: 2
 
-Vehicle ID: 101
-Vehicle Name: TEST
+Vehicle ID: 0
+Vehicle Name: 
+Vehicle max fuel capacity in Liter: 0
+Vehicle fuel usage in Liter: 0.00
+Vehicle fuel remaining: 0.00
+Vehicle driven distance: 0.00
+
+Vehicle ID: 0
+Vehicle Name: 
 Vehicle max fuel capacity in Liter: 0
 Vehicle fuel usage in Liter: 0.00
 Vehicle fuel remaining: 0.00

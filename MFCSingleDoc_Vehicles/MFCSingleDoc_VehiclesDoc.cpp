@@ -53,7 +53,7 @@ BOOL CMFCSingleDocVehiclesDoc::OnNewDocument()
 	if(mainframe != NULL)
 	{
 		auto leftPain = mainframe->GetLeftPane();
-		leftPain->clearLeftView();
+		leftPain->deleteAllItems();
 
 		auto rightPane = mainframe->GetRightPane();
 		rightPane->DeleteListView();
@@ -75,16 +75,16 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: add storing code here
-		fileManager.WriteVehiclesToFile(*m_serialList, ar.m_strFileName);
+		fileManager.WriteVehiclesToFile(m_serialCollection, ar.m_strFileName);
 
 		/*
-		m_objectCount = m_serialList->GetSize();
+		m_objectCount = m_serialCollection->GetSize();
 		ar << m_objectCount;
 
-		for(size_t i = 0; i < m_serialList->GetSize(); i++)
+		for(size_t i = 0; i < m_serialCollection->GetSize(); i++)
 		{
-			auto position = m_serialList->FindIndex(i);
-			m_serialList->GetAt(position)->Serialize(ar);
+			auto position = m_serialCollection->FindIndex(i);
+			m_serialCollection->GetAt(position)->Serialize(ar);
 
 		}
 		*/
@@ -93,8 +93,19 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: add loading code here
+		CVehicleCollection serialCollection = fileManager.CreateVehiclesFromFile(ar.m_strFileName);
+		m_serialCollection = std::move(serialCollection);
+
+		auto mainframe = (CMainFrame*)AfxGetApp()->m_pMainWnd;
+		auto leftPain = mainframe->GetLeftPane();
+		leftPain->deleteAllItems();
+		for (size_t i = 0; i < m_serialCollection.GetSize(); i++)
+		{
+			leftPain->InsertVehicleToListView(m_serialCollection.GetVehicle(i));
+		}
+		/*
 		this->OnNewDocument();
-		m_serialList->RemoveAll();
+		m_serialCollection->RemoveAll();
 
 		ar >> m_objectCount;
 
@@ -102,9 +113,10 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 		{
 			CVehicle* vehicle = new CVehicle();
 			vehicle->Serialize(ar);
-			m_serialList->AddTail(vehicle);
+			m_serialCollection->AddTail(vehicle);
 			
 		}
+		*/
 	}
 }
 
@@ -180,6 +192,6 @@ void CMFCSingleDocVehiclesDoc::Dump(CDumpContext& dc) const
 
 void CMFCSingleDocVehiclesDoc::AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
-	m_serialList->AddTail(new CVehicle(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
+	m_serialCollection.AddVehicle(CVehicle(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
 }
 

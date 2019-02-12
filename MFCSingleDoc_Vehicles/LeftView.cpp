@@ -63,8 +63,8 @@ void CLeftView::OnInitialUpdate()
 		m_ImageList.Add(AfxGetApp()->LoadIcon(IDI_ICON1));
 		m_treeCtrl.SetImageList(&m_ImageList, TVSIL_NORMAL);
 	}
-	
-	m_hItem = m_treeCtrl.InsertItem(L"Vehicle List",2,2, TVI_ROOT);
+
+	 m_hItem = m_treeCtrl.InsertItem(L"Vehicle List",2,2, TVI_ROOT);
 	// this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
 
 }
@@ -96,15 +96,29 @@ CMFCSingleDocVehiclesDoc* CLeftView::GetDocument() // non-debug version is inlin
 void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
 	//HICON image = m_ImageList.ExtractIconW(0);
-	
+
 	m_hCar = m_treeCtrl.InsertItem(L"ID: " + id		+ " Name: " + name,0,0 ,m_hItem);
 	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, 2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance,2,2, m_hCar);
 
-	auto document = GetDocument();
-	document->AddVehicleToSerialList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
+	// auto document = GetDocument();
+	// document->AddVehicleToSerialList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
+}
+
+void CLeftView::InsertVehicleToListView(CVehicle* vehicle)
+{
+	CString id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance;
+
+	id.Format(L"%d", vehicle->getId());
+	name = vehicle->getName();
+	maxFuelCapacity.Format(L"%d",vehicle->getMaxFuelCapacity());
+	fuelUsage.Format(L"%f", vehicle->getFuelUsage());
+	fuelRemaining.Format(L"%f", vehicle->getFuelRemaining());
+	drivenDistance.Format(L"%f", vehicle->getDrivenDistance());
+
+	this->InsertVehicleToListView(id, name,maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
 }
 
 
@@ -284,7 +298,27 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 
 }
 
-void CLeftView::clearLeftView()
+void CLeftView::deleteAllItems()
 {
 	m_treeCtrl.DeleteAllItems();
+}
+
+void CLeftView::deleteAllChildItems()
+{
+	// HTREEITEM hmyItem;
+
+	// Delete all of the children of hmyItem.
+	if (m_treeCtrl.ItemHasChildren(m_hItem))
+	{
+		HTREEITEM hNextItem;
+		HTREEITEM hChildItem = m_treeCtrl.GetChildItem(m_hItem);
+
+		while (hChildItem != NULL)
+		{
+			hNextItem = m_treeCtrl.GetNextItem(hChildItem, TVGN_NEXT);
+			m_treeCtrl.DeleteItem(hChildItem);
+			hChildItem = hNextItem;
+		}
+	}
+
 }

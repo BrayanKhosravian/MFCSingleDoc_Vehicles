@@ -1,16 +1,16 @@
 #pragma once
-class CVehicle : public CObject
+class CVehicle
 {
 public:
-	DECLARE_SERIAL(CVehicle)
+	// DECLARE_SERIAL(CVehicle)
 	CVehicle();
 	CVehicle(CString name, int maxFuelCapacity, float fuelUsage, float fuelRemaining, float drivenDistance);
 	CVehicle(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
 	CVehicle(long id, CString name, int maxFuelCapacity, float fuelUsage, float fuelRemaining, float drivenDistance);
 	CVehicle(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
-	virtual ~CVehicle();
+	~CVehicle();
 
-	virtual void Serialize(CArchive& archive);
+	// virtual void Serialize(CArchive& archive);
 
 	// methods
 	void reFuel(float fuel);
@@ -34,10 +34,10 @@ protected:
 
 private:
 	// fields
-	long m_id;
+	long m_id = 0;
 	CString m_name;
-	int m_maxFuelCapacity;
-	float m_fuelUsage, m_fuelRemaining, m_drivenDistance;
+	int m_maxFuelCapacity = 0;
+	float m_fuelUsage, m_fuelRemaining, m_drivenDistance = 0;
 
 	// methods
 	long idCounter()

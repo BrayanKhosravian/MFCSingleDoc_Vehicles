@@ -4,7 +4,7 @@
 
 
 #pragma once
-//#include "MFCSingleDoc_VehiclesView.h"
+#include "CVehicle.h"
 
 class CMFCSingleDocVehiclesDoc;
 
@@ -48,6 +48,7 @@ public:
 public:
 	void InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage,
 								 CString fuelRemaining, CString drivenDistance);
+	void InsertVehicleToListView(CVehicle* vehicle);
 
 private:
 	void SaveDataToFields();
@@ -72,7 +73,8 @@ public:
 	afx_msg void OnVehiclemenuEdit();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 
-	void clearLeftView();
+	void deleteAllItems();
+	void deleteAllChildItems();
 };
 
 

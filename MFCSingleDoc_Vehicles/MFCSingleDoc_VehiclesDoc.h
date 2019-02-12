@@ -5,6 +5,7 @@
 
 #pragma once
 #include "CVehicle.h"
+#include "CVehicleCollection.h"
 
 
 class CMFCSingleDocVehiclesDoc : public CDocument
@@ -50,9 +51,10 @@ protected:
 // custom implementations	
 public:
 	void AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
-	CList<CVehicle*, CVehicle*>* getSerialList() const { return m_serialList; }
+	//CList<CVehicle*, CVehicle*>* getSerialList() const { return m_serialCollection; }
 
 private:
-	CList<CVehicle*, CVehicle*>* m_serialList = new CList<CVehicle*, CVehicle*>;
+	// CList<CVehicle*, CVehicle*>* m_serialCollection = new CList<CVehicle*, CVehicle*>;
+	CVehicleCollection m_serialCollection;
 	size_t m_objectCount = 0;
 };
