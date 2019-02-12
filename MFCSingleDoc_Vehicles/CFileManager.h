@@ -13,5 +13,10 @@ public:
 
 	void WriteVehiclesToFile(CVehicleCollection& vehicles, CString& fileName /*= L"Vehicles.veh"*/);
 	CVehicleCollection CreateVehiclesFromFile(CString& fileName /* = "Vehicles.veh")*/);
+
+private:
+	bool strEndsWith(CString& fileName, CString compareWith);
+
+	
 };
 

@@ -16,8 +16,8 @@ CFileManager::~CFileManager()
 
 void CFileManager::WriteVehiclesToFile(CVehicleCollection& vehicles, CString& fileName)
 {
-	fileName += L".veh";
-
+	if(!this->strEndsWith(fileName, L".veh")) fileName += L".veh";
+	
 	std::fstream stream;
 	stream.open(fileName, std::fstream::in | std::fstream::out | std::fstream::trunc);
 
@@ -127,4 +127,13 @@ CVehicleCollection CFileManager::CreateVehiclesFromFile(CString& fileName)
 	inFile.close();
 	return vehicleVector;
 
+}
+
+bool CFileManager::strEndsWith(CString& fileName, CString compareWith)
+{
+	CString temp = fileName.Right(4);
+	temp.MakeLower();
+
+	if (temp == compareWith) return true;
+	else return false;
 }

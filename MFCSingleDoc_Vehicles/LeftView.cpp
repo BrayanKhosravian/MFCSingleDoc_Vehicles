@@ -210,7 +210,7 @@ void CLeftView::OnVehiclemenuEdit()
 
 	auto firstChild = m_treeCtrl.GetNextItem(m_selectedItem, TVGN_CHILD);
 	maxFuelCapacity = m_treeCtrl.GetItemText(firstChild);
-	maxFuelCapacity.Replace(L"Max fuel capacity:", L"");
+	maxFuelCapacity.Replace(L"Max fuel capacity: ", L"");
 
 	auto nextChild = m_treeCtrl.GetNextSiblingItem(firstChild);
 	fuelUsage = m_treeCtrl.GetItemText(nextChild);
