@@ -25,7 +25,7 @@ void CFileManager::WriteVehiclesToFile(CVehicleCollection& vehicles, CString& fi
 
 	for (size_t i = 0; i < vehicles.GetSize(); i++)
 	{
-		CVehicle* vehicle = vehicles.GetVehicle(i);
+		CVehicle* vehicle = vehicles.GetVehicleWithIndex(i);
 
 		stream.precision(2);
 		stream << "Vehicle ID: " << vehicle->getId() << endl;

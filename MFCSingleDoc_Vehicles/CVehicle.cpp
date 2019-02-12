@@ -69,6 +69,19 @@ CVehicle::CVehicle(CString name, CString maxFuelCapacity, CString fuelUsage, CSt
 CVehicle::~CVehicle()
 {
 }
+
+void CVehicle::setAllMembers(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining,
+	CString drivenDistance, CString power, CString serviceInterval)
+{
+	m_name = name;
+	m_maxFuelCapacity = _wtoi(maxFuelCapacity);
+	m_fuelUsage = _wtof(fuelUsage);
+	m_fuelRemaining = _wtof(fuelRemaining);
+	m_drivenDistance = _wtof(drivenDistance);
+	m_power = _wtoi(power);
+	m_serviceInterval = _wtoi(serviceInterval);
+}
+
 //
 //void CVehicle::Serialize(CArchive& archive)
 //{

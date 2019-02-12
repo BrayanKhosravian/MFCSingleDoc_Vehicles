@@ -105,7 +105,7 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 
 		for (size_t i = 0; i < m_serialCollection.GetSize(); i++)
 		{
-			leftPain->InsertVehicleToListView(m_serialCollection.GetVehicle(i));
+			leftPain->InsertVehicleToListView(m_serialCollection.GetVehicleWithIndex(i));
 		}
 		/*
 		this->OnNewDocument();
@@ -202,6 +202,12 @@ void CMFCSingleDocVehiclesDoc::AddVehicleToSerialList(CString id, CString name, 
 void CMFCSingleDocVehiclesDoc::DeleteVehicleWithId(long id)
 {
 	m_serialCollection.DeleteVehicleWithId(id);
+}
+
+void CMFCSingleDocVehiclesDoc::EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage,
+	CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval)
+{
+	m_serialCollection.EditVehicleWithId(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
 }
 
 

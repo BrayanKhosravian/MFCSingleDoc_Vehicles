@@ -133,7 +133,7 @@ void CLeftView::CreatTreeFromSerialCollection(CVehicleCollection& vehicles)
 	this->deleteAllChildItems();
 	for (size_t i = 0; i < vehicles.GetSize(); i++)
 	{
-		this->InsertVehicleToListView(vehicles.GetVehicle(i));
+		this->InsertVehicleToListView(vehicles.GetVehicleWithIndex(i));
 	}
 }
 
@@ -208,10 +208,10 @@ void CLeftView::OnVehiclemenuDelete()
 void CLeftView::OnVehiclemenuEdit()
 {
 	CConfigureVehicleDlg configureVehicleDialog;
-	CString id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
+	CString idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
 
-	id = m_treeCtrl.GetItemText(m_selectedItem);
-	id.Replace(L"ID: ", L"");
+	idStr = m_treeCtrl.GetItemText(m_selectedItem);
+	idStr.Replace(L"ID: ", L"");
 
 	auto firstChild = m_treeCtrl.GetNextItem(m_selectedItem, TVGN_CHILD);
 	name = m_treeCtrl.GetItemText(firstChild);
@@ -242,7 +242,7 @@ void CLeftView::OnVehiclemenuEdit()
 	serviceInterval.Replace(L"Service interval: ", L"");
 
 	configureVehicleDialog.m_Name = name;
-	configureVehicleDialog.m_ID = id;
+	configureVehicleDialog.m_ID = idStr;
 	configureVehicleDialog.m_MaxFuelCapacity = maxFuelCapacity;
 	configureVehicleDialog.m_FuelUsage = fuelUsage;
 	configureVehicleDialog.m_FuelRemaining = fuelRemaining;
@@ -253,7 +253,7 @@ void CLeftView::OnVehiclemenuEdit()
 	if(configureVehicleDialog.DoModal() == IDOK)
 	{
 		m_treeCtrl.DeleteItem(m_selectedItem);
-		id = configureVehicleDialog.m_ID;
+		idStr = configureVehicleDialog.m_ID;
 		name = configureVehicleDialog.m_Name;
 		maxFuelCapacity = configureVehicleDialog.m_MaxFuelCapacity;
 		fuelUsage = configureVehicleDialog.m_FuelUsage;
@@ -261,12 +261,15 @@ void CLeftView::OnVehiclemenuEdit()
 		drivenDistance = configureVehicleDialog.m_DrivenDistance;
 		power = configureVehicleDialog.m_Power;
 		serviceInterval = configureVehicleDialog.m_ServiceInterval;
-		this->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+		this->InsertVehicleToListView(idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+
+		long id = _wtol(idStr);
+		GetDocument()->EditVehicleWithId(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
 
 		auto mainFrame = AfxGetApp()->m_pMainWnd;
 		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
 		auto rightView = pMainWnd->GetRightPane();
-		rightView->ShowSelectedItemInList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+		rightView->ShowSelectedItemInList(idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
 	}
 }
 

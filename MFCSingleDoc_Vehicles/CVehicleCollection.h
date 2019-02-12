@@ -15,10 +15,11 @@ public:
 	void AddVehicle(CVehicle&& vehicle);
 	void DeleteVehicleWithIndex(std::size_t elementAt);
 	void DeleteVehicleWithId(long id);
-	void EditVehicleWithId(long id);
+	void EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
 
 	// Getters
-	CVehicle* GetVehicle(size_t elementAt);
+	CVehicle* GetVehicleWithIndex(size_t elementAt);
+	CVehicle* GetVehicleWithId(long id);
 	size_t GetSize();
 
 	// operators

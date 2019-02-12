@@ -15,14 +15,16 @@ public:
 	// virtual void Serialize(CArchive& archive);
 
 	// methods
-	void reFuel(float fuel);
-	void drive(float km);
+	void doReFuel(float fuel);
+	void doDrive(float km);
+	void doService();
 
 	// setters
 	void setID(long id);
 	void setName(const CString& name);
 	void setMaxFuelCapacity(int maxFuelCapacity);
 	void setFuelUsage(float fuelUsage);
+	void setAllMembers(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
 
 	// getters
 	long getId() const { return m_id; }
