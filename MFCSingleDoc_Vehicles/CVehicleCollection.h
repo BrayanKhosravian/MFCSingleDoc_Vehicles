@@ -13,7 +13,9 @@ public:
 	~CVehicleCollection();
 
 	void AddVehicle(CVehicle&& vehicle);
-	void DeleteVehicle(std::size_t elementAt);
+	void DeleteVehicleWithIndex(std::size_t elementAt);
+	void DeleteVehicleWithId(long id);
+	void EditVehicleWithId(long id);
 
 	// Getters
 	CVehicle* GetVehicle(size_t elementAt);

@@ -51,6 +51,8 @@ protected:
 // custom implementations	
 public:
 	void AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
+	void DeleteVehicleWithId(long id);
+	
 	//CList<CVehicle*, CVehicle*>* getSerialList() const { return m_serialCollection; }
 
 private:

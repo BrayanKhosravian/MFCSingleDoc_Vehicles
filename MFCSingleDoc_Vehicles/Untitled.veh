@@ -1,16 +1,7 @@
-Count of registered vehicles: 4
+Count of registered vehicles: 2
 
 Vehicle ID: 0
-Vehicle Name: 
-Vehicle max fuel capacity in Liter: 0
-Vehicle fuel usage in Liter: 0.00
-Vehicle fuel remaining: 0.00
-Vehicle driven distance: 0.00
-Vehicle power: 0
-Vehicle service interval: 0
-
-Vehicle ID: 1
-Vehicle Name: 
+Vehicle Name: a
 Vehicle max fuel capacity in Liter: 0
 Vehicle fuel usage in Liter: 0.00
 Vehicle fuel remaining: 0.00
@@ -19,16 +10,7 @@ Vehicle power: 0
 Vehicle service interval: 0
 
 Vehicle ID: 2
-Vehicle Name: 
-Vehicle max fuel capacity in Liter: 0
-Vehicle fuel usage in Liter: 0.00
-Vehicle fuel remaining: 0.00
-Vehicle driven distance: 0.00
-Vehicle power: 0
-Vehicle service interval: 0
-
-Vehicle ID: 3
-Vehicle Name: 
+Vehicle Name: c
 Vehicle max fuel capacity in Liter: 0
 Vehicle fuel usage in Liter: 0.00
 Vehicle fuel remaining: 0.00

@@ -199,6 +199,10 @@ void CMFCSingleDocVehiclesDoc::AddVehicleToSerialList(CString id, CString name, 
 	m_serialCollection.AddVehicle(CVehicle(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
 }
 
+void CMFCSingleDocVehiclesDoc::DeleteVehicleWithId(long id)
+{
+	m_serialCollection.DeleteVehicleWithId(id);
+}
 
 
 void CMFCSingleDocVehiclesDoc::OnToolsAddvehicle()

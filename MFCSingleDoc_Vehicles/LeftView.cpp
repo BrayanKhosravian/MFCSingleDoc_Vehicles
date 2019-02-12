@@ -99,13 +99,14 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 	m_hItem = m_treeCtrl.GetRootItem();
 	if (m_hItem == NULL) this->createRootItem();
 
-	m_hCar = m_treeCtrl.InsertItem(L"ID: " + id		+ " Name: " + name,0,0 ,m_hItem);
+	m_hCar = m_treeCtrl.InsertItem(L"ID: "			+ id, 0, 0, m_hItem);
+	m_treeCtrl.InsertItem(L"Name: "					+ name, 2, 2, m_hCar);
 	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, 2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance,2,2, m_hCar);
-	m_treeCtrl.InsertItem(L"Power: " + power, 2, 2, m_hCar);
-	m_treeCtrl.InsertItem(L"Service interval: " + serviceInterval, 2, 2, m_hCar);
+	m_treeCtrl.InsertItem(L"Power: "				+ power, 2, 2, m_hCar);
+	m_treeCtrl.InsertItem(L"Service interval: "		+ serviceInterval, 2, 2, m_hCar);
 
 	// auto document = GetDocument();
 	// document->AddVehicleToSerialList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
@@ -185,8 +186,16 @@ void CLeftView::OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CLeftView::OnVehiclemenuDelete()
 {
-	if(m_selectedItem != NULL) m_treeCtrl.DeleteItem(m_selectedItem);
+	if (m_selectedItem != NULL)
+	{
+		auto idStr = m_treeCtrl.GetItemText(m_selectedItem);
+		idStr.Replace(L"ID: ", L"");
+		long id = _wtol(idStr);
 
+		GetDocument()->DeleteVehicleWithId(id);
+		m_treeCtrl.DeleteItem(m_selectedItem);
+
+	}
 	auto mainFrame = AfxGetApp()->m_pMainWnd;
 	CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
 	auto rightView = pMainWnd->GetRightPane();
@@ -199,20 +208,20 @@ void CLeftView::OnVehiclemenuDelete()
 void CLeftView::OnVehiclemenuEdit()
 {
 	CConfigureVehicleDlg configureVehicleDialog;
-	CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
+	CString id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
 
-	CString nameAndID = m_treeCtrl.GetItemText(m_selectedItem);
-	int pos = nameAndID.Find(L"Name: ");
-	name = nameAndID.Mid(pos+6);
-	nameAndID.Delete(pos, nameAndID.GetLength() - pos);
-	nameAndID.Delete(0, 4);
-	id = nameAndID;
+	id = m_treeCtrl.GetItemText(m_selectedItem);
+	id.Replace(L"ID: ", L"");
 
 	auto firstChild = m_treeCtrl.GetNextItem(m_selectedItem, TVGN_CHILD);
-	maxFuelCapacity = m_treeCtrl.GetItemText(firstChild);
-	maxFuelCapacity.Replace(L"Max fuel capacity: ", L"");
+	name = m_treeCtrl.GetItemText(firstChild);
+	name.Replace(L"Name: ", L"");
 
 	auto nextChild = m_treeCtrl.GetNextSiblingItem(firstChild);
+	maxFuelCapacity = m_treeCtrl.GetItemText(nextChild);
+	maxFuelCapacity.Replace(L"Max fuel capacity: ", L"");
+
+	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
 	fuelUsage = m_treeCtrl.GetItemText(nextChild);
 	fuelUsage.Replace(L"Fuel usage: ", L"");
 
@@ -291,18 +300,18 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
 
-		CString nameAndID = m_treeCtrl.GetItemText(m_selectedItem);
-		int pos = nameAndID.Find(L"Name: ");
-		name = nameAndID.Mid(pos + 6);
-		nameAndID.Delete(pos, nameAndID.GetLength() - pos);
-		nameAndID.Delete(0, 4);
-		id = nameAndID;
+		id = m_treeCtrl.GetItemText(m_selectedItem);
+		id.Replace(L"ID: ", L"");
 
 		auto firstChild = m_treeCtrl.GetNextItem(m_selectedItem, TVGN_CHILD);
-		maxFuelCapacity = m_treeCtrl.GetItemText(firstChild);
-		maxFuelCapacity.Replace(L"Max fuel capacity:", L"");
+		name = m_treeCtrl.GetItemText(firstChild);
+		name.Replace(L"Name: ", L"");
 
 		auto nextChild = m_treeCtrl.GetNextSiblingItem(firstChild);
+		maxFuelCapacity = m_treeCtrl.GetItemText(nextChild);
+		maxFuelCapacity.Replace(L"Max fuel capacity: ", L"");
+
+		nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
 		fuelUsage = m_treeCtrl.GetItemText(nextChild);
 		fuelUsage.Replace(L"Fuel usage: ", L"");
 
