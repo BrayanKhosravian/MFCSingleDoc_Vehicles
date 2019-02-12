@@ -32,9 +32,6 @@ IMPLEMENT_DYNCREATE(CMFCSingleDocVehiclesDoc, CDocument)
 BEGIN_MESSAGE_MAP(CMFCSingleDocVehiclesDoc, CDocument)
 	
 	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMFCSingleDocVehiclesDoc::OnToolsAddvehicle)
-	ON_COMMAND(ID_VEHICLEMENU_REFUEL, &CMFCSingleDocVehiclesDoc::OnVehiclemenuRefuel)
-	ON_COMMAND(ID_VEHICLEMENU_DRIVE, &CMFCSingleDocVehiclesDoc::OnVehiclemenuDrive)
-	ON_COMMAND(ID_VEHICLEMENU_SERVICE, &CMFCSingleDocVehiclesDoc::OnVehiclemenuService)
 END_MESSAGE_MAP()
 
 
@@ -243,31 +240,3 @@ void CMFCSingleDocVehiclesDoc::OnToolsAddvehicle()
 }
 
 
-void CMFCSingleDocVehiclesDoc::OnVehiclemenuRefuel()
-{
-	CRefuelDlg refuelDlg;
-	if(refuelDlg.DoModal())
-	{
-		
-	}
-}
-
-
-void CMFCSingleDocVehiclesDoc::OnVehiclemenuDrive()
-{
-	CDriveDlg driveDlg;
-	if(driveDlg.DoModal())
-	{
-		
-	}
-}
-
-
-void CMFCSingleDocVehiclesDoc::OnVehiclemenuService()
-{
-	CServiceDlg serviceDlg;
-	if(serviceDlg.DoModal())
-	{
-		
-	}
-}

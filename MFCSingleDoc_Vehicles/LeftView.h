@@ -78,6 +78,9 @@ public:
 	void deleteAllItems();
 	void deleteAllChildItems();
 	void createRootItem();
+	afx_msg void OnVehiclemenuDrive();
+	afx_msg void OnVehiclemenuService();
+	afx_msg void OnVehiclemenuRefuel();
 };
 
 

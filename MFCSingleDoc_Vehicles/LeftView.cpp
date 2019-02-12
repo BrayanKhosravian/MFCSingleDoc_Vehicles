@@ -11,6 +11,9 @@
 #include "CConfigureVehicleDlg.h"
 #include "MainFrm.h"
 #include "MFCSingleDoc_VehiclesView.h"
+#include "CDriveDlg.h"
+#include "CServiceDlg.h"
+#include "CRefuelDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -27,6 +30,9 @@ BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	ON_COMMAND(ID_VEHICLEMENU_DELETE, &CLeftView::OnVehiclemenuDelete)
 	ON_COMMAND(ID_VEHICLEMENU_EDIT, &CLeftView::OnVehiclemenuEdit)
 	ON_WM_LBUTTONDOWN()
+	ON_COMMAND(ID_VEHICLEMENU_DRIVE, &CLeftView::OnVehiclemenuDrive)
+	ON_COMMAND(ID_VEHICLEMENU_SERVICE, &CLeftView::OnVehiclemenuService)
+	ON_COMMAND(ID_VEHICLEMENU_REFUEL, &CLeftView::OnVehiclemenuRefuel)
 END_MESSAGE_MAP()
 
 
@@ -372,4 +378,34 @@ void CLeftView::deleteAllChildItems()
 void CLeftView::createRootItem()
 {
 	m_hItem = m_treeCtrl.InsertItem(L"Vehicle List", 2, 2, TVI_ROOT);
+}
+
+
+void CLeftView::OnVehiclemenuDrive()
+{
+	CDriveDlg driveDlg;
+	if(driveDlg.DoModal() == IDOK)
+	{
+		
+	}
+}
+
+
+void CLeftView::OnVehiclemenuService()
+{
+	CServiceDlg serviceDlg;
+	if(serviceDlg.DoModal() == IDOK)
+	{
+		
+	}
+}
+
+
+void CLeftView::OnVehiclemenuRefuel()
+{
+	CRefuelDlg refuelDlg;
+	if(refuelDlg.DoModal() == IDOK)
+	{
+		
+	}
 }
