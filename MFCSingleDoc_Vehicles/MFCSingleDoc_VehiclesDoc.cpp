@@ -17,6 +17,7 @@
 #include "MFCSingleDoc_VehiclesView.h"
 #include "CFileManager.h"
 #include "CConfigureVehicleDlg.h"
+#include "CRefuelDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -29,6 +30,7 @@ IMPLEMENT_DYNCREATE(CMFCSingleDocVehiclesDoc, CDocument)
 BEGIN_MESSAGE_MAP(CMFCSingleDocVehiclesDoc, CDocument)
 	
 	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMFCSingleDocVehiclesDoc::OnToolsAddvehicle)
+	ON_COMMAND(ID_VEHICLEMENU_REFUEL, &CMFCSingleDocVehiclesDoc::OnVehiclemenuRefuel)
 END_MESSAGE_MAP()
 
 
@@ -233,5 +235,15 @@ void CMFCSingleDocVehiclesDoc::OnToolsAddvehicle()
 		// CLeftView* treeControl = this->GetLeftPane();
 		// treeControl->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
 
+	}
+}
+
+
+void CMFCSingleDocVehiclesDoc::OnVehiclemenuRefuel()
+{
+	CRefuelDlg refuelDlg;
+	if(refuelDlg.DoModal())
+	{
+		
 	}
 }

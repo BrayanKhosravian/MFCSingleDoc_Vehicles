@@ -62,4 +62,5 @@ private:
 	size_t m_objectCount = 0;
 public:
 	afx_msg void OnToolsAddvehicle();
+	afx_msg void OnVehiclemenuRefuel();
 };

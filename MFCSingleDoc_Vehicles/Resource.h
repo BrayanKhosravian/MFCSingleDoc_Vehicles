@@ -33,6 +33,7 @@
 #define IDD_ConfigureVehicle            310
 #define IDR_VehicleMenu                 313
 #define IDI_ICON1                       318
+#define IDD_RefuelDlg                   319
 #define IDC_EDIT_ID                     1000
 #define IDC_EDIT_Name                   1001
 #define IDC_EDIT_MaxFuelCapacity        1002
@@ -42,20 +43,24 @@
 #define IDC_EDIT_Power                  1011
 #define IDC_EDIT_ServiceInterval        1012
 #define IDC_CHECK_IsFuelRemaining       1017
-#define IDC_CHECK2                      1018
 #define IDC_CHECK_IsServiceNeeded       1018
+#define IDC_EDIT1                       1019
+#define IDC_EDIT_Refuel                 1020
 #define ID_TOOLS_ADDVEHICLE             32771
 #define ID_VEHICLEMENU_DELETE           32773
 #define ID_VEHICLEMENU_DELETE32774      32774
 #define ID_VEHICLEMENU_EDIT             32775
+#define ID_VEHICLEMENU_DRIVE            32776
+#define ID_VEHICLEMENU_SERVICE          32777
+#define ID_VEHICLEMENU_REFUEL           32778
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        319
-#define _APS_NEXT_COMMAND_VALUE         32776
-#define _APS_NEXT_CONTROL_VALUE         1019
+#define _APS_NEXT_RESOURCE_VALUE        321
+#define _APS_NEXT_COMMAND_VALUE         32779
+#define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
