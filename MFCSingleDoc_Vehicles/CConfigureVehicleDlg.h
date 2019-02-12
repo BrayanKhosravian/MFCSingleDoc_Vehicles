@@ -27,4 +27,10 @@ public:
 	CString m_FuelUsage;
 	CString m_FuelRemaining;
 	CString m_DrivenDistance;
+	
+	CString m_Power;
+	CString m_ServiceInterval;
+
+	BOOL m_IsFuelRemaining;
+	BOOL m_IsServiceNeeded;
 };

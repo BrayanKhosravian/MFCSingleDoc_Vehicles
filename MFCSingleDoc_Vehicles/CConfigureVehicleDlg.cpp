@@ -19,6 +19,10 @@ CConfigureVehicleDlg::CConfigureVehicleDlg(CWnd* pParent /*=nullptr*/)
 	, m_FuelUsage(_T(""))
 	, m_FuelRemaining(_T(""))
 	, m_DrivenDistance(_T(""))
+	, m_Power(_T(""))
+	, m_ServiceInterval(_T(""))
+	, m_IsFuelRemaining(FALSE)
+	, m_IsServiceNeeded(FALSE)
 {
 
 }
@@ -36,6 +40,10 @@ void CConfigureVehicleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_FuelUsage, m_FuelUsage);
 	DDX_Text(pDX, IDC_EDIT_FuelRemaining, m_FuelRemaining);
 	DDX_Text(pDX, IDC_EDIT_DrivenDistance, m_DrivenDistance);
+	DDX_Text(pDX, IDC_EDIT_Power, m_Power);
+	DDX_Text(pDX, IDC_EDIT_ServiceInterval, m_ServiceInterval);
+	DDX_Check(pDX, IDC_CHECK_IsFuelRemaining, m_IsFuelRemaining);
+	DDX_Check(pDX, IDC_CHECK_IsServiceNeeded, m_IsServiceNeeded);
 }
 
 
