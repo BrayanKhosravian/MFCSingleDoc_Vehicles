@@ -475,9 +475,11 @@ void CMainFrame::OnToolsAddvehicle()
 		const CString fuelUsage = vehicleDialog.m_FuelUsage;
 		const CString fuelRemaining = vehicleDialog.m_FuelRemaining;
 		const CString drivenDistance = vehicleDialog.m_DrivenDistance;
+		const CString power = vehicleDialog.m_Power;
+		const CString serviceInterval = vehicleDialog.m_ServiceInterval;
 
 		CLeftView* treeControl = this->GetLeftPane();
-		treeControl->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
+		treeControl->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
 		
 	}
 	

@@ -57,4 +57,6 @@ private:
 	// CList<CVehicle*, CVehicle*>* m_serialCollection = new CList<CVehicle*, CVehicle*>;
 	CVehicleCollection m_serialCollection;
 	size_t m_objectCount = 0;
+public:
+	afx_msg void OnToolsAddvehicle();
 };

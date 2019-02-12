@@ -44,7 +44,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	void ShowSelectedItemInList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage,
-								CString fuelRemaining, CString drivenDistance);
+								CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
 	void DeleteAllItems();
 	void DeleteListView();
 

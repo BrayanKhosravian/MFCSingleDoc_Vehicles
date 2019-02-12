@@ -93,7 +93,7 @@ CMFCSingleDocVehiclesDoc* CLeftView::GetDocument() // non-debug version is inlin
 
 // custom implementations
 
-void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
+void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval)
 {
 	//HICON image = m_ImageList.ExtractIconW(0);
 	m_hItem = m_treeCtrl.GetRootItem();
@@ -104,6 +104,8 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, 2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance,2,2, m_hCar);
+	m_treeCtrl.InsertItem(L"Power: " + power, 2, 2, m_hCar);
+	m_treeCtrl.InsertItem(L"Service interval: " + serviceInterval, 2, 2, m_hCar);
 
 	// auto document = GetDocument();
 	// document->AddVehicleToSerialList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
@@ -111,7 +113,7 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 
 void CLeftView::InsertVehicleToListView(CVehicle* vehicle)
 {
-	CString id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance;
+	CString id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
 
 	id.Format(L"%d", vehicle->getId());
 	name = vehicle->getName();
@@ -119,8 +121,19 @@ void CLeftView::InsertVehicleToListView(CVehicle* vehicle)
 	fuelUsage.Format(L"%f", vehicle->getFuelUsage());
 	fuelRemaining.Format(L"%f", vehicle->getFuelRemaining());
 	drivenDistance.Format(L"%f", vehicle->getDrivenDistance());
+	power.Format(L"%d", vehicle->getPower());
+	serviceInterval.Format(L"%d", vehicle->getServiceInterval());
 
-	this->InsertVehicleToListView(id, name,maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
+	this->InsertVehicleToListView(id, name,maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+}
+
+void CLeftView::CreatTreeFromSerialCollection(CVehicleCollection& vehicles)
+{
+	this->deleteAllChildItems();
+	for (size_t i = 0; i < vehicles.GetSize(); i++)
+	{
+		this->InsertVehicleToListView(vehicles.GetVehicle(i));
+	}
 }
 
 
@@ -186,7 +199,7 @@ void CLeftView::OnVehiclemenuDelete()
 void CLeftView::OnVehiclemenuEdit()
 {
 	CConfigureVehicleDlg configureVehicleDialog;
-	CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance;
+	CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
 
 	CString nameAndID = m_treeCtrl.GetItemText(m_selectedItem);
 	int pos = nameAndID.Find(L"Name: ");
@@ -211,12 +224,22 @@ void CLeftView::OnVehiclemenuEdit()
 	drivenDistance = m_treeCtrl.GetItemText(nextChild);
 	drivenDistance.Replace(L"Driven distance: ", L"");
 
+	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+	power = m_treeCtrl.GetItemText(nextChild);
+	power.Replace(L"Power: ", L"");
+
+	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+	serviceInterval = m_treeCtrl.GetItemText(nextChild);
+	serviceInterval.Replace(L"Service interval: ", L"");
+
 	configureVehicleDialog.m_Name = name;
 	configureVehicleDialog.m_ID = id;
 	configureVehicleDialog.m_MaxFuelCapacity = maxFuelCapacity;
 	configureVehicleDialog.m_FuelUsage = fuelUsage;
 	configureVehicleDialog.m_FuelRemaining = fuelRemaining;
 	configureVehicleDialog.m_DrivenDistance = drivenDistance;
+	configureVehicleDialog.m_Power = power;
+	configureVehicleDialog.m_ServiceInterval = serviceInterval;
 
 	if(configureVehicleDialog.DoModal() == IDOK)
 	{
@@ -227,12 +250,14 @@ void CLeftView::OnVehiclemenuEdit()
 		fuelUsage = configureVehicleDialog.m_FuelUsage;
 		fuelRemaining = configureVehicleDialog.m_FuelRemaining;
 		drivenDistance = configureVehicleDialog.m_DrivenDistance;
-		this->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
+		power = configureVehicleDialog.m_Power;
+		serviceInterval = configureVehicleDialog.m_ServiceInterval;
+		this->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
 
 		auto mainFrame = AfxGetApp()->m_pMainWnd;
 		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
 		auto rightView = pMainWnd->GetRightPane();
-		rightView->ShowSelectedItemInList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
+		rightView->ShowSelectedItemInList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
 	}
 }
 
@@ -264,7 +289,7 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 		// Id is not included its not a child of root // returns
 		if (m_treeCtrl.GetItemText(m_selectedItem).Find(L"ID")) { return; }
 
-		CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance;
+		CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
 
 		CString nameAndID = m_treeCtrl.GetItemText(m_selectedItem);
 		int pos = nameAndID.Find(L"Name: ");
@@ -289,10 +314,18 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 		drivenDistance = m_treeCtrl.GetItemText(nextChild);
 		drivenDistance.Replace(L"Driven distance: ", L"");
 
+		nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+		power = m_treeCtrl.GetItemText(nextChild);
+		power.Replace(L"Power: ", L"");
+
+		nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+		serviceInterval = m_treeCtrl.GetItemText(nextChild);
+		serviceInterval.Replace(L"Service interval: ", L"");
+
 		auto mainFrame = AfxGetApp()->m_pMainWnd;
 		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
 		auto rightView = pMainWnd->GetRightPane();
-		rightView->ShowSelectedItemInList(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance);
+		rightView->ShowSelectedItemInList(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance, power, serviceInterval);
 
 	}
 
@@ -307,8 +340,7 @@ void CLeftView::deleteAllItems()
 
 void CLeftView::deleteAllChildItems()
 {
-	// HTREEITEM hmyItem;
-
+	if (!m_treeCtrl.GetRootItem()) return;
 	// Delete all of the children of hmyItem.
 	if (m_treeCtrl.ItemHasChildren(m_hItem))
 	{

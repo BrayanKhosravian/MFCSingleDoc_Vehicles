@@ -16,6 +16,7 @@
 #include "MainFrm.h"
 #include "MFCSingleDoc_VehiclesView.h"
 #include "CFileManager.h"
+#include "CConfigureVehicleDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -27,6 +28,7 @@ IMPLEMENT_DYNCREATE(CMFCSingleDocVehiclesDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CMFCSingleDocVehiclesDoc, CDocument)
 	
+	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMFCSingleDocVehiclesDoc::OnToolsAddvehicle)
 END_MESSAGE_MAP()
 
 
@@ -197,3 +199,29 @@ void CMFCSingleDocVehiclesDoc::AddVehicleToSerialList(CString id, CString name, 
 	m_serialCollection.AddVehicle(CVehicle(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance));
 }
 
+
+
+void CMFCSingleDocVehiclesDoc::OnToolsAddvehicle()
+{
+	CConfigureVehicleDlg vehicleDialog;
+	if (vehicleDialog.DoModal() == IDOK)
+	{
+		const CString id = vehicleDialog.m_ID;
+		const CString name = vehicleDialog.m_Name;
+		const CString maxFuelCapacity = vehicleDialog.m_MaxFuelCapacity;
+		const CString fuelUsage = vehicleDialog.m_FuelUsage;
+		const CString fuelRemaining = vehicleDialog.m_FuelRemaining;
+		const CString drivenDistance = vehicleDialog.m_DrivenDistance;
+		const CString power = vehicleDialog.m_Power;
+		const CString serviceInterval = vehicleDialog.m_ServiceInterval;
+
+		m_serialCollection.AddVehicle(CVehicle(name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval));
+
+		auto mainframe = (CMainFrame*)AfxGetApp()->m_pMainWnd;
+		auto leftPain = mainframe->GetLeftPane();
+		leftPain->CreatTreeFromSerialCollection(m_serialCollection);
+		// CLeftView* treeControl = this->GetLeftPane();
+		// treeControl->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+
+	}
+}

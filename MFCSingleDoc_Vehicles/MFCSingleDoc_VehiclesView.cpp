@@ -119,7 +119,8 @@ LRESULT CMFCSingleDocVehiclesView::OnPrint(WPARAM wp, LPARAM lp)
 }
 
 void CMFCSingleDocVehiclesView::ShowSelectedItemInList(CString id, CString name, CString maxFuelCapacity, 
-														   CString fuelUsage, CString fuelRemaining, CString drivenDistance)
+													   CString fuelUsage, CString fuelRemaining, 
+													   CString drivenDistance, CString power, CString serviceInterval)
 {
 	m_listCtrl.DeleteAllItems();
 
@@ -131,6 +132,8 @@ void CMFCSingleDocVehiclesView::ShowSelectedItemInList(CString id, CString name,
 	m_listCtrl.SetItem(index, 3, LVIF_TEXT, fuelUsage, 0, 0, 0, NULL);			// fuel usage
 	m_listCtrl.SetItem(index, 4, LVIF_TEXT, fuelRemaining, 0, 0, 0, NULL);		// fuel remaining
 	m_listCtrl.SetItem(index, 5, LVIF_TEXT, drivenDistance, 0, 0, 0, NULL);		// driven distance
+	m_listCtrl.SetItem(index, 6, LVIF_TEXT, power, 0, 0, 0, NULL);				// power
+	m_listCtrl.SetItem(index, 7, LVIF_TEXT, serviceInterval, 0, 0, 0, NULL);
 
 }
 

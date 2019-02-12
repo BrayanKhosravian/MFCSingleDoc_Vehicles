@@ -5,6 +5,7 @@
 
 #pragma once
 #include "CVehicle.h"
+#include "CVehicleCollection.h"
 
 class CMFCSingleDocVehiclesDoc;
 
@@ -47,8 +48,9 @@ public:
 
 public:
 	void InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage,
-								 CString fuelRemaining, CString drivenDistance);
+								 CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
 	void InsertVehicleToListView(CVehicle* vehicle);
+	void CreatTreeFromSerialCollection(CVehicleCollection& vehicles);
 
 private:
 	void SaveDataToFields();

@@ -9,6 +9,7 @@ public:
 	CVehicle(long id, CString name, int maxFuelCapacity, float fuelUsage, float fuelRemaining, float drivenDistance);
 	CVehicle(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
 	CVehicle(CString name, int maxFuelCapacity, float fuelUsage, float fuelRemaining, float drivenDistance, int power, int serviceInterval);
+	CVehicle(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
 	~CVehicle();
 
 	// virtual void Serialize(CArchive& archive);
