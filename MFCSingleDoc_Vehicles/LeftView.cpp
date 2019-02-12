@@ -64,7 +64,7 @@ void CLeftView::OnInitialUpdate()
 		m_treeCtrl.SetImageList(&m_ImageList, TVSIL_NORMAL);
 	}
 
-	 m_hItem = m_treeCtrl.InsertItem(L"Vehicle List",2,2, TVI_ROOT);
+	// m_hItem = m_treeCtrl.InsertItem(L"Vehicle List",2,2, TVI_ROOT);
 	// this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
 
 }
@@ -96,6 +96,8 @@ CMFCSingleDocVehiclesDoc* CLeftView::GetDocument() // non-debug version is inlin
 void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance)
 {
 	//HICON image = m_ImageList.ExtractIconW(0);
+	m_hItem = m_treeCtrl.GetRootItem();
+	if (m_hItem == NULL) this->createRootItem();
 
 	m_hCar = m_treeCtrl.InsertItem(L"ID: " + id		+ " Name: " + name,0,0 ,m_hItem);
 	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity,2,2, m_hCar);
@@ -321,4 +323,9 @@ void CLeftView::deleteAllChildItems()
 		}
 	}
 
+}
+
+void CLeftView::createRootItem()
+{
+	m_hItem = m_treeCtrl.InsertItem(L"Vehicle List", 2, 2, TVI_ROOT);
 }

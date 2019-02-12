@@ -75,6 +75,7 @@ public:
 
 	void deleteAllItems();
 	void deleteAllChildItems();
+	void createRootItem();
 };
 
 

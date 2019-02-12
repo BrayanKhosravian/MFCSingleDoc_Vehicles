@@ -54,6 +54,7 @@ BOOL CMFCSingleDocVehiclesDoc::OnNewDocument()
 	{
 		auto leftPain = mainframe->GetLeftPane();
 		leftPain->deleteAllItems();
+		leftPain->createRootItem();
 
 		auto rightPane = mainframe->GetRightPane();
 		rightPane->DeleteListView();
@@ -93,12 +94,13 @@ void CMFCSingleDocVehiclesDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: add loading code here
+		this->OnNewDocument();
 		CVehicleCollection serialCollection = fileManager.CreateVehiclesFromFile(ar.m_strFileName);
 		m_serialCollection = std::move(serialCollection);
 
 		auto mainframe = (CMainFrame*)AfxGetApp()->m_pMainWnd;
 		auto leftPain = mainframe->GetLeftPane();
-		leftPain->deleteAllItems();
+
 		for (size_t i = 0; i < m_serialCollection.GetSize(); i++)
 		{
 			leftPain->InsertVehicleToListView(m_serialCollection.GetVehicle(i));
