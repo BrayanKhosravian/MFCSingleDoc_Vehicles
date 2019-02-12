@@ -34,6 +34,8 @@ void CFileManager::WriteVehiclesToFile(CVehicleCollection& vehicles, CString& fi
 		stream << std::fixed << "Vehicle fuel usage in Liter: " << vehicle->getFuelUsage() << endl;
 		stream << std::fixed << "Vehicle fuel remaining: " << vehicle->getFuelRemaining() << endl;
 		stream << std::fixed << "Vehicle driven distance: " << vehicle->getDrivenDistance() << std::endl;
+		stream << std::fixed << "Vehicle power: " << vehicle->getPower() << std::endl;
+		stream << std::fixed << "Vehicle service interval: " << vehicle->getServiceInterval() << std::endl;
 		stream << endl;
 	}
 	stream.close();
@@ -49,6 +51,8 @@ CVehicleCollection CFileManager::CreateVehiclesFromFile(CString& fileName)
 	float fuelUsage = 0;
 	float fuelRemaining = 0;
 	float drivenDistance = 0;
+	int power = 0;
+	int serviceInterval = 0;
 
 	int i = 0;
 	int dataLine = 0;
@@ -99,8 +103,22 @@ CVehicleCollection CFileManager::CreateVehiclesFromFile(CString& fileName)
 			else if (dataLine == 5)	// get vehicle driven distance
 			{
 				string content = line.substr(25, string::npos);
-				drivenDistance = stof(content); dataLine = 0;
-				vehicleVector.AddVehicle(CVehicle((CString)name.c_str(), maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance));
+				drivenDistance = stof(content);
+				dataLine++;
+				continue;
+			}
+			else if (dataLine == 6)	// get vehicle power
+			{
+				string content = line.substr(15, string::npos);
+				power = stoi(content);
+				dataLine ++;
+				continue;
+			}
+			else if (dataLine == 7)	// get vehicle power
+			{
+				string content = line.substr(26, string::npos);
+				serviceInterval = stoi(content);
+				vehicleVector.AddVehicle(CVehicle((CString)name.c_str(), maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval));
 				dataLine = 0;
 				continue;
 			}

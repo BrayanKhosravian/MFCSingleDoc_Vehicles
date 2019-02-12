@@ -65,6 +65,8 @@ void CMFCSingleDocVehiclesView::OnInitialUpdate()
 	m_listCtrl.InsertColumn(3, L"Fuel usage", LVCFMT_LEFT, -1, 3);
 	m_listCtrl.InsertColumn(4, L"Fuel remaining", LVCFMT_LEFT, -1, 4);
 	m_listCtrl.InsertColumn(5, L"Driven distance", LVCFMT_LEFT, -1, 5);
+	m_listCtrl.InsertColumn(6, L"Power", LVCFMT_LEFT, -1, 6);
+	m_listCtrl.InsertColumn(7, L"Service interval", LVCFMT_LEFT, -1, 7);
 
 	// set with
 	m_listCtrl.SetColumnWidth(0, 80);
@@ -73,6 +75,8 @@ void CMFCSingleDocVehiclesView::OnInitialUpdate()
 	m_listCtrl.SetColumnWidth(3, 120);
 	m_listCtrl.SetColumnWidth(4, 120);
 	m_listCtrl.SetColumnWidth(5, 120);
+	m_listCtrl.SetColumnWidth(6, 120);
+	m_listCtrl.SetColumnWidth(7, 120);
 
 	
 	
