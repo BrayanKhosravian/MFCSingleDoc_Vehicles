@@ -184,8 +184,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CConfigureVehicleDlg.h" />
+    <ClInclude Include="CDriveDlg.h" />
     <ClInclude Include="CFileManager.h" />
     <ClInclude Include="CRefuelDlg.h" />
+    <ClInclude Include="CServiceDlg.h" />
     <ClInclude Include="CVehicle.h" />
     <ClInclude Include="LeftView.h" />
     <ClInclude Include="MainFrm.h" />
@@ -199,8 +201,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CConfigureVehicleDlg.cpp" />
+    <ClCompile Include="CDriveDlg.cpp" />
     <ClCompile Include="CFileManager.cpp" />
     <ClCompile Include="CRefuelDlg.cpp" />
+    <ClCompile Include="CServiceDlg.cpp" />
     <ClCompile Include="CVehicle.cpp" />
     <ClCompile Include="LeftView.cpp" />
     <ClCompile Include="MainFrm.cpp" />

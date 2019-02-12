@@ -18,6 +18,8 @@
 #include "CFileManager.h"
 #include "CConfigureVehicleDlg.h"
 #include "CRefuelDlg.h"
+#include "CDriveDlg.h"
+#include "CServiceDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -31,6 +33,8 @@ BEGIN_MESSAGE_MAP(CMFCSingleDocVehiclesDoc, CDocument)
 	
 	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMFCSingleDocVehiclesDoc::OnToolsAddvehicle)
 	ON_COMMAND(ID_VEHICLEMENU_REFUEL, &CMFCSingleDocVehiclesDoc::OnVehiclemenuRefuel)
+	ON_COMMAND(ID_VEHICLEMENU_DRIVE, &CMFCSingleDocVehiclesDoc::OnVehiclemenuDrive)
+	ON_COMMAND(ID_VEHICLEMENU_SERVICE, &CMFCSingleDocVehiclesDoc::OnVehiclemenuService)
 END_MESSAGE_MAP()
 
 
@@ -243,6 +247,26 @@ void CMFCSingleDocVehiclesDoc::OnVehiclemenuRefuel()
 {
 	CRefuelDlg refuelDlg;
 	if(refuelDlg.DoModal())
+	{
+		
+	}
+}
+
+
+void CMFCSingleDocVehiclesDoc::OnVehiclemenuDrive()
+{
+	CDriveDlg driveDlg;
+	if(driveDlg.DoModal())
+	{
+		
+	}
+}
+
+
+void CMFCSingleDocVehiclesDoc::OnVehiclemenuService()
+{
+	CServiceDlg serviceDlg;
+	if(serviceDlg.DoModal())
 	{
 		
 	}

@@ -63,4 +63,6 @@ private:
 public:
 	afx_msg void OnToolsAddvehicle();
 	afx_msg void OnVehiclemenuRefuel();
+	afx_msg void OnVehiclemenuDrive();
+	afx_msg void OnVehiclemenuService();
 };
