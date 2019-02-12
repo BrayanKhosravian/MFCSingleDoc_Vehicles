@@ -54,6 +54,7 @@ public:
 
 private:
 	void SaveDataToFields();
+	long GetIdFromSelectedItem();
 
 	CTreeCtrl& m_treeCtrl = GetTreeCtrl();
 	HTREEITEM m_hItem;

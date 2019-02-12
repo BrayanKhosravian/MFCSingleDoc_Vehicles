@@ -70,6 +70,21 @@ CVehicle::~CVehicle()
 {
 }
 
+void CVehicle::doReFuel(float fuel)
+{
+	m_fuelRemaining += fuel;
+}
+
+void CVehicle::doDrive(float km)
+{
+	m_drivenDistance += km;
+}
+
+void CVehicle::doService()
+{
+	m_isServiceNeeded = false;
+}
+
 void CVehicle::setAllMembers(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining,
 	CString drivenDistance, CString power, CString serviceInterval)
 {

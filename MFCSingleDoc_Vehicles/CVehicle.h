@@ -25,6 +25,8 @@ public:
 	void setMaxFuelCapacity(int maxFuelCapacity);
 	void setFuelUsage(float fuelUsage);
 	void setAllMembers(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
+	void setIsFuelRemaining(const bool isFuelRemaining) { m_isFuelRemaining = isFuelRemaining; }
+	void setIsServiceNeeded(const bool isServiceNeeded) { m_isServiceNeeded = isServiceNeeded; }
 
 	// getters
 	long getId() const { return m_id; }
@@ -35,6 +37,8 @@ public:
 	float getFuelUsage() const { return m_fuelUsage; }
 	float getFuelRemaining() const { return m_fuelRemaining; }
 	float getDrivenDistance() const { return m_drivenDistance; }
+	bool getIsFuelRemaining() const { return m_isFuelRemaining; }
+	bool getIsServiceNeeded() const { return m_isServiceNeeded; }
 
 protected:
 

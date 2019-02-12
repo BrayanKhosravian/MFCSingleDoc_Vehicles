@@ -143,6 +143,15 @@ void CLeftView::CreatTreeFromSerialCollection(CVehicleCollection& vehicles)
 	}
 }
 
+long CLeftView::GetIdFromSelectedItem()
+{
+	CString idStr = m_treeCtrl.GetItemText(m_selectedItem);
+	idStr.Replace(L"ID: ", L"");
+
+	long id = _wtol(idStr);
+	return id;
+}
+
 
 void CLeftView::OnNMRClick(NMHDR *pNMHDR, LRESULT *pResult)
 {
