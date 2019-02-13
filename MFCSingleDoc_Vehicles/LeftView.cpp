@@ -305,7 +305,7 @@ void CLeftView::OnVehiclemenuEdit()
 		auto mainFrame = AfxGetApp()->m_pMainWnd;
 		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
 		auto rightView = pMainWnd->GetRightPane();
-		rightView->ShowSelectedItemInList(idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+		rightView->ShowSelectedItemInList(idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
 	}
 }
 
@@ -337,7 +337,7 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 		// Id is not included its not a child of root // returns
 		if (m_treeCtrl.GetItemText(m_selectedItem).Find(L"ID")) { return; }
 
-		CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
+		CString name, id, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining;
 
 		id = m_treeCtrl.GetItemText(m_selectedItem);
 		id.Replace(L"ID: ", L"");
@@ -370,10 +370,18 @@ void CLeftView::OnLButtonDown(UINT nFlags, CPoint point)
 		serviceInterval = m_treeCtrl.GetItemText(nextChild);
 		serviceInterval.Replace(L"Service interval: ", L"");
 
+		nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+		isServiceNeeded = m_treeCtrl.GetItemText(nextChild);
+		isServiceNeeded.Replace(L"Is service needed? ", L"");
+
+		nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+		isFuelRemaining = m_treeCtrl.GetItemText(nextChild);
+		isFuelRemaining.Replace(L"Is fuel remaining? ", L"");
+
 		auto mainFrame = AfxGetApp()->m_pMainWnd;
 		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
 		auto rightView = pMainWnd->GetRightPane();
-		rightView->ShowSelectedItemInList(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance, power, serviceInterval);
+		rightView->ShowSelectedItemInList(id,name,maxFuelCapacity,fuelUsage,fuelRemaining,drivenDistance, power, serviceInterval,isServiceNeeded, isFuelRemaining);
 
 	}
 

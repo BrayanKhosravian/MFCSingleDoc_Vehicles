@@ -67,6 +67,8 @@ void CMFCSingleDocVehiclesView::OnInitialUpdate()
 	m_listCtrl.InsertColumn(5, L"Driven distance", LVCFMT_LEFT, -1, 5);
 	m_listCtrl.InsertColumn(6, L"Power", LVCFMT_LEFT, -1, 6);
 	m_listCtrl.InsertColumn(7, L"Service interval", LVCFMT_LEFT, -1, 7);
+	m_listCtrl.InsertColumn(8, L"Is service needed?", LVCFMT_LEFT, -4, 8);
+	m_listCtrl.InsertColumn(9, L"Is fuel remaining?", LVCFMT_LEFT, -4, 9);
 
 	// set with
 	m_listCtrl.SetColumnWidth(0, 80);
@@ -77,6 +79,8 @@ void CMFCSingleDocVehiclesView::OnInitialUpdate()
 	m_listCtrl.SetColumnWidth(5, 120);
 	m_listCtrl.SetColumnWidth(6, 120);
 	m_listCtrl.SetColumnWidth(7, 120);
+	m_listCtrl.SetColumnWidth(8, 40);
+	m_listCtrl.SetColumnWidth(9, 40);
 
 	
 	
@@ -120,7 +124,7 @@ LRESULT CMFCSingleDocVehiclesView::OnPrint(WPARAM wp, LPARAM lp)
 
 void CMFCSingleDocVehiclesView::ShowSelectedItemInList(CString id, CString name, CString maxFuelCapacity, 
 													   CString fuelUsage, CString fuelRemaining, 
-													   CString drivenDistance, CString power, CString serviceInterval)
+													   CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaning)
 {
 	m_listCtrl.DeleteAllItems();
 
@@ -133,8 +137,9 @@ void CMFCSingleDocVehiclesView::ShowSelectedItemInList(CString id, CString name,
 	m_listCtrl.SetItem(index, 4, LVIF_TEXT, fuelRemaining, 0, 0, 0, NULL);		// fuel remaining
 	m_listCtrl.SetItem(index, 5, LVIF_TEXT, drivenDistance, 0, 0, 0, NULL);		// driven distance
 	m_listCtrl.SetItem(index, 6, LVIF_TEXT, power, 0, 0, 0, NULL);				// power
-	m_listCtrl.SetItem(index, 7, LVIF_TEXT, serviceInterval, 0, 0, 0, NULL);
-
+	m_listCtrl.SetItem(index, 7, LVIF_TEXT, serviceInterval, 0, 0, 0, NULL);	// service intervall
+	m_listCtrl.SetItem(index, 8, LVIF_TEXT, isServiceNeeded, 0, 0, 0, NULL);
+	m_listCtrl.SetItem(index, 9, LVIF_TEXT, isFuelRemaning, 0, 0, 0, NULL);
 }
 
 void CMFCSingleDocVehiclesView::DeleteAllItems()
