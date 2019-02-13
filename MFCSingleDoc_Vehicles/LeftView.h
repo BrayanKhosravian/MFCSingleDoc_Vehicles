@@ -48,7 +48,8 @@ public:
 
 public:
 	void InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage,
-								 CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
+								 CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval, 
+								 CString isServiceNeeded, CString isFuelRemaining);
 	void InsertVehicleToListView(CVehicle* vehicle);
 	void CreatTreeFromSerialCollection(CVehicleCollection& vehicles);
 

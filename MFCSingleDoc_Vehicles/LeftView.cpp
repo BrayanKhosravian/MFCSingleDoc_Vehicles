@@ -99,7 +99,7 @@ CMFCSingleDocVehiclesDoc* CLeftView::GetDocument() // non-debug version is inlin
 
 // custom implementations
 
-void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval)
+void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaining)
 {
 	//HICON image = m_ImageList.ExtractIconW(0);
 	m_hItem = m_treeCtrl.GetRootItem();
@@ -113,6 +113,8 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Power: "				+ power, 2, 2, m_hCar);
 	m_treeCtrl.InsertItem(L"Service interval: "		+ serviceInterval, 2, 2, m_hCar);
+	m_treeCtrl.InsertItem(L"Is service needed? " + isServiceNeeded, 2, 2, m_hCar);
+	m_treeCtrl.InsertItem(L"Is fuel remaining? " + isFuelRemaining, 2, 2, m_hCar);
 
 	// auto document = GetDocument();
 	// document->AddVehicleToSerialList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
@@ -120,7 +122,7 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 
 void CLeftView::InsertVehicleToListView(CVehicle* vehicle)
 {
-	CString id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
+	CString id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining;
 
 	id.Format(L"%d", vehicle->getId());
 	name = vehicle->getName();
@@ -130,8 +132,10 @@ void CLeftView::InsertVehicleToListView(CVehicle* vehicle)
 	drivenDistance.Format(L"%f", vehicle->getDrivenDistance());
 	power.Format(L"%d", vehicle->getPower());
 	serviceInterval.Format(L"%d", vehicle->getServiceInterval());
+	isServiceNeeded = vehicle->getIsServiceNeeded() ? "TRUE" : "FALSE";
+	isFuelRemaining = vehicle->getIsFuelRemaining() ? "TRUE" : "FALSE";
 
-	this->InsertVehicleToListView(id, name,maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+	this->InsertVehicleToListView(id, name,maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
 }
 
 void CLeftView::CreatTreeFromSerialCollection(CVehicleCollection& vehicles)
@@ -223,7 +227,7 @@ void CLeftView::OnVehiclemenuDelete()
 void CLeftView::OnVehiclemenuEdit()
 {
 	CConfigureVehicleDlg configureVehicleDialog;
-	CString idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval;
+	CString idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining;
 
 	idStr = m_treeCtrl.GetItemText(m_selectedItem);
 	idStr.Replace(L"ID: ", L"");
@@ -256,6 +260,14 @@ void CLeftView::OnVehiclemenuEdit()
 	serviceInterval = m_treeCtrl.GetItemText(nextChild);
 	serviceInterval.Replace(L"Service interval: ", L"");
 
+	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+	isServiceNeeded = m_treeCtrl.GetItemText(nextChild);
+	isServiceNeeded.Replace(L"Is service needed? ", L"");
+
+	nextChild = m_treeCtrl.GetNextSiblingItem(nextChild);
+	isFuelRemaining = m_treeCtrl.GetItemText(nextChild);
+	isFuelRemaining.Replace(L"Is fuel remaining? ", L"");
+
 	configureVehicleDialog.m_Name = name;
 	configureVehicleDialog.m_ID = idStr;
 	configureVehicleDialog.m_MaxFuelCapacity = maxFuelCapacity;
@@ -264,6 +276,10 @@ void CLeftView::OnVehiclemenuEdit()
 	configureVehicleDialog.m_DrivenDistance = drivenDistance;
 	configureVehicleDialog.m_Power = power;
 	configureVehicleDialog.m_ServiceInterval = serviceInterval;
+	if (isServiceNeeded.Find(L"TRUE")) configureVehicleDialog.m_IsServiceNeeded = true;
+	else configureVehicleDialog.m_IsServiceNeeded = false;
+	if (isFuelRemaining.Find(L"TRUE")) configureVehicleDialog.m_IsFuelRemaining = true;
+	else configureVehicleDialog.m_IsFuelRemaining = false;
 
 	if(configureVehicleDialog.DoModal() == IDOK)
 	{
@@ -276,7 +292,12 @@ void CLeftView::OnVehiclemenuEdit()
 		drivenDistance = configureVehicleDialog.m_DrivenDistance;
 		power = configureVehicleDialog.m_Power;
 		serviceInterval = configureVehicleDialog.m_ServiceInterval;
-		this->InsertVehicleToListView(idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+
+		isServiceNeeded = configureVehicleDialog.m_IsServiceNeeded ? L"TRUE" : L"FALSE";
+		if (_wtof(fuelRemaining) <= 0) isFuelRemaining = L"TRUE";
+		else isFuelRemaining = L"FALSE";
+
+		this->InsertVehicleToListView(idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
 
 		long id = _wtol(idStr);
 		GetDocument()->EditVehicleWithId(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
