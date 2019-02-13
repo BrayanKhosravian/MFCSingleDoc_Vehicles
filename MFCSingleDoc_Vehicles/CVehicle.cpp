@@ -19,7 +19,7 @@ CVehicle::CVehicle(CString name, int maxFuelCapacity, float fuelUsage, float fue
 	m_fuelUsage = fuelUsage;
 	m_fuelRemaining = fuelRemaining;
 	m_drivenDistance = drivenDistance;
-	if (m_maxFuelCapacity > m_fuelRemaining) m_fuelRemaining = m_maxFuelCapacity;
+	if (m_fuelRemaining > m_maxFuelCapacity) m_fuelRemaining = m_maxFuelCapacity;
 }
 
 CVehicle::CVehicle(long id, CString name, int maxFuelCapacity, float fuelUsage, float fuelRemaining, float drivenDistance)
@@ -30,7 +30,7 @@ CVehicle::CVehicle(long id, CString name, int maxFuelCapacity, float fuelUsage, 
 	m_fuelUsage = fuelUsage;
 	m_fuelRemaining = fuelRemaining;
 	m_drivenDistance = drivenDistance;
-	if (m_maxFuelCapacity > m_fuelRemaining) m_fuelRemaining = m_maxFuelCapacity;
+	if (m_fuelRemaining > m_maxFuelCapacity) m_fuelRemaining = m_maxFuelCapacity;
 }
 
 CVehicle::CVehicle(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining,
@@ -42,7 +42,7 @@ CVehicle::CVehicle(CString id, CString name, CString maxFuelCapacity, CString fu
 	m_fuelUsage = _wtof(fuelUsage);
 	m_fuelRemaining = _wtof(fuelRemaining);
 	m_drivenDistance = _wtof(drivenDistance);
-	if (m_maxFuelCapacity > m_fuelRemaining) m_fuelRemaining = m_maxFuelCapacity;
+	if (m_fuelRemaining > m_maxFuelCapacity) m_fuelRemaining = m_maxFuelCapacity;
 }
 
 CVehicle::CVehicle(CString name, int maxFuelCapacity, float fuelUsage, float fuelRemaining, float drivenDistance,
@@ -56,7 +56,7 @@ CVehicle::CVehicle(CString name, int maxFuelCapacity, float fuelUsage, float fue
 	m_drivenDistance = drivenDistance;
 	m_power = power;
 	m_serviceInterval = serviceInterval;
-	if (m_maxFuelCapacity > m_fuelRemaining) m_fuelRemaining = m_maxFuelCapacity;
+	if (m_fuelRemaining > m_maxFuelCapacity) m_fuelRemaining = m_maxFuelCapacity;
 }
 
 CVehicle::CVehicle(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining,
@@ -70,7 +70,7 @@ CVehicle::CVehicle(CString name, CString maxFuelCapacity, CString fuelUsage, CSt
 	m_drivenDistance = _wtof(drivenDistance);
 	m_power = _wtoi(power);
 	m_serviceInterval = _wtoi(serviceInterval);
-	if (m_maxFuelCapacity > m_fuelRemaining) m_fuelRemaining = m_maxFuelCapacity;
+	if (m_fuelRemaining > m_maxFuelCapacity) m_fuelRemaining = m_maxFuelCapacity;
 }
 
 
@@ -78,7 +78,7 @@ CVehicle::~CVehicle()
 {
 }
 
-void CVehicle::doReFuel(float fuel)
+void CVehicle::doRefuel(float fuel)
 {
 	m_fuelRemaining += fuel;
 	if (m_fuelRemaining > m_maxFuelCapacity)
@@ -95,16 +95,11 @@ void CVehicle::doDrive(float km)
 	float maxDriveableDistance, fuelUsed;
 	CString message;
 
-	if (m_tempServiceDistance >= m_serviceInterval && m_serviceInterval > 0)
-	{
-		message += L"You need to make a service for yor vehicle \n";
-	}
-
 	if(m_fuelRemaining <= 0)
 	{
 		m_isFuelRemaining = false;
 		m_fuelRemaining = 0;
-		message += L"No fuel remaining. Refuel your vehicle";
+		message += L">> No fuel remaining. Refuel your vehicle \n";
 	}
 	else
 	{
@@ -118,7 +113,7 @@ void CVehicle::doDrive(float km)
 			m_tempServiceDistance += maxDriveableDistance;
 			m_fuelRemaining = 0;
 			CString test = convertToCString(maxDriveableDistance);
-			message += L"No fuel remaining. Refuel your vehicle. You only drove: " + convertToCString(maxDriveableDistance) + L"km";
+			message += L">> No fuel remaining. Refuel your vehicle. You only drove: " + convertToCString(maxDriveableDistance) + L"km \n";
 		}
 		else
 		{
@@ -127,6 +122,12 @@ void CVehicle::doDrive(float km)
 			m_tempServiceDistance += km;
 			m_fuelRemaining -= fuelUsed;
 		}
+	}
+
+	if (m_tempServiceDistance >= m_serviceInterval && m_serviceInterval > 0)
+	{
+		message += L">> You need to make a service for yor vehicle \n";
+		m_isServiceNeeded = true;
 	}
 
 	if(!message.IsEmpty()) AfxMessageBox(message);

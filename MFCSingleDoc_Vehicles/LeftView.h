@@ -55,6 +55,8 @@ public:
 private:
 	void SaveDataToFields();
 	long GetIdFromSelectedItem();
+	void updateVehicleCollectionInDoc(CVehicleCollection& vehicles);
+	void deleteRightViewItems();
 
 	CTreeCtrl& m_treeCtrl = GetTreeCtrl();
 	HTREEITEM m_hItem;

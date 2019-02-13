@@ -390,6 +390,21 @@ void CLeftView::createRootItem()
 }
 
 
+void CLeftView::updateVehicleCollectionInDoc(CVehicleCollection& vehicles)
+{
+	// refresh vehicle collection
+	this->CreatTreeFromSerialCollection(vehicles);
+	GetDocument()->SetVehicleCollection(std::move(vehicles));
+}
+
+void CLeftView::deleteRightViewItems()
+{
+	// delete rightview items because unselected the item
+	auto mainFrame = (CMainFrame*)AfxGetMainWnd();
+	auto rightPane = mainFrame->GetRightPane();
+	rightPane->DeleteAllItems();
+}
+
 void CLeftView::OnVehiclemenuDrive()
 {
 	CDriveDlg driveDlg;
@@ -398,8 +413,9 @@ void CLeftView::OnVehiclemenuDrive()
 		long id = this->GetIdFromSelectedItem();
 		auto vehicles = GetDocument()->GetVehicleColltection();
 		vehicles.GetVehicleWithId(id)->doDrive(_wtof(driveDlg.m_Distance));
-		this->CreatTreeFromSerialCollection(vehicles);
-		GetDocument()->SetVehicleCollection(std::move(vehicles));
+
+		this->updateVehicleCollectionInDoc(vehicles);
+		this->deleteRightViewItems();
 	}
 }
 
@@ -409,7 +425,12 @@ void CLeftView::OnVehiclemenuService()
 	CServiceDlg serviceDlg;
 	if(serviceDlg.DoModal() == IDOK)
 	{
-		
+		long id = this->GetIdFromSelectedItem();
+		auto vehicles = GetDocument()->GetVehicleColltection();
+		vehicles.GetVehicleWithId(id)->doService();
+
+		this->updateVehicleCollectionInDoc(vehicles);
+		this->deleteRightViewItems();
 	}
 }
 
@@ -419,6 +440,11 @@ void CLeftView::OnVehiclemenuRefuel()
 	CRefuelDlg refuelDlg;
 	if(refuelDlg.DoModal() == IDOK)
 	{
-		
+		long id = this->GetIdFromSelectedItem();
+		auto vehicles = GetDocument()->GetVehicleColltection();
+		vehicles.GetVehicleWithId(id)->doRefuel(_wtof(refuelDlg.m_Refuel));
+
+		this->updateVehicleCollectionInDoc(vehicles);
+		this->deleteRightViewItems();
 	}
 }

@@ -15,7 +15,7 @@ public:
 	// virtual void Serialize(CArchive& archive);
 
 	// methods
-	void doReFuel(float fuel);
+	void doRefuel(float fuel);
 	void doDrive(float km);
 	void doService();
 
