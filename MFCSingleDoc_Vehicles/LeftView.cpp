@@ -395,7 +395,11 @@ void CLeftView::OnVehiclemenuDrive()
 	CDriveDlg driveDlg;
 	if(driveDlg.DoModal() == IDOK)
 	{
-		
+		long id = this->GetIdFromSelectedItem();
+		auto vehicles = GetDocument()->GetVehicleColltection();
+		vehicles.GetVehicleWithId(id)->doDrive(_wtof(driveDlg.m_Distance));
+		this->CreatTreeFromSerialCollection(vehicles);
+		GetDocument()->SetVehicleCollection(std::move(vehicles));
 	}
 }
 

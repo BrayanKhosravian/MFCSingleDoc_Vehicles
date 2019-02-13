@@ -50,9 +50,16 @@ protected:
 
 // custom implementations	
 public:
+	// methods
 	void AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
 	void DeleteVehicleWithId(long id);
 	void EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
+
+	// getters
+	CVehicleCollection GetVehicleColltection() { return std::move(m_serialCollection); }
+
+	// setters
+	void SetVehicleCollection(CVehicleCollection vehicles) { m_serialCollection = std::move(vehicles); }
 
 	//CList<CVehicle*, CVehicle*>* getSerialList() const { return m_serialCollection; }
 
