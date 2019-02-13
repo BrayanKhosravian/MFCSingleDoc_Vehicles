@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "CVehicle.h"
+#include <string>
 
 // IMPLEMENT_SERIAL(CVehicle, CObject, 1)
+
+using namespace std;
 
 CVehicle::CVehicle()
 {
@@ -73,16 +76,52 @@ CVehicle::~CVehicle()
 void CVehicle::doReFuel(float fuel)
 {
 	m_fuelRemaining += fuel;
+	if (m_fuelRemaining > m_maxFuelCapacity) m_fuelRemaining = m_maxFuelCapacity;
 }
 
 void CVehicle::doDrive(float km)
 {
-	m_drivenDistance += km;
+	float maxDriveableDistance, fuelUsed;
+	CString message;
+
+	if (m_serviceInterval >= m_tempServiceDistance) message += L"You need to make a service for yor vehicle \n";
+
+	if(m_fuelRemaining <= 0)
+	{
+		m_isFuelRemaining = false;
+		m_fuelRemaining = 0;
+		message += ("No fuel remaining. Refuel your vehicle");
+	}
+	else
+	{
+		maxDriveableDistance = m_fuelUsage / m_fuelRemaining * 100;
+		fuelUsed = m_fuelUsage * 100 * km;
+
+		if(km >= maxDriveableDistance)
+		{
+			m_isFuelRemaining = false;
+			m_drivenDistance += maxDriveableDistance;
+			m_tempServiceDistance += maxDriveableDistance;
+			m_fuelRemaining = 0;
+			CString test = convertToCString(maxDriveableDistance);
+			message += L"No fuel remaining. Refuel your vehicle. You only drove: " + convertToCString(maxDriveableDistance) + L"km";
+		}
+		else
+		{
+			m_isFuelRemaining = true;
+			m_drivenDistance += km;
+			m_tempServiceDistance += km;
+			m_fuelRemaining -= fuelUsed;
+		}
+	}
+
+	AfxMessageBox(message);
 }
 
 void CVehicle::doService()
 {
 	m_isServiceNeeded = false;
+	m_tempServiceDistance = 0;
 }
 
 void CVehicle::setAllMembers(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining,

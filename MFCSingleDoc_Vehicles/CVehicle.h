@@ -47,7 +47,7 @@ private:
 	long m_id = 0;
 	CString m_name;
 	int m_maxFuelCapacity, m_power, m_serviceInterval = 0;
-	float m_fuelUsage, m_fuelRemaining, m_drivenDistance = 0;
+	float m_fuelUsage, m_fuelRemaining, m_drivenDistance , m_tempServiceDistance = 0.00f;
 	bool m_isFuelRemaining, m_isServiceNeeded = false;
 
 	// methods
@@ -55,6 +55,18 @@ private:
 	{
 		static std::size_t n = 0;
 		return  n++;
+	}
+
+	template<typename T>
+	inline CString convertToCString(T toConvert)
+	{
+		static_assert(std::is_arithmetic_v<T>, "Method CVehicle::convertToCString only uses arithmetic types as parameter");
+		
+		CString output;
+		if(std::is_floating_point_v<T>) output.Format(_T("%f"), toConvert);
+		else if(std::is_integral_v<T>) output.Format(_T("%d"), toConvert);
+
+		return output;
 	}
 };
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <tuple>
 
 
 // CConfigureVehicleDlg dialog
@@ -10,6 +11,7 @@ class CConfigureVehicleDlg : public CDialog
 public:
 	CConfigureVehicleDlg(CWnd* pParent = nullptr);   // standard constructor
 	virtual ~CConfigureVehicleDlg();
+	
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME

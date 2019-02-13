@@ -31,6 +31,8 @@ CConfigureVehicleDlg::~CConfigureVehicleDlg()
 {
 }
 
+
+
 void CConfigureVehicleDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
