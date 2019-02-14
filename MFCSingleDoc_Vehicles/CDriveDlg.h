@@ -10,6 +10,7 @@ class CDriveDlg : public CDialogEx
 public:
 	CDriveDlg(CWnd* pParent = nullptr);   // standard constructor
 	virtual ~CDriveDlg();
+	bool isValid();
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME

@@ -116,6 +116,8 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 	m_treeCtrl.InsertItem(L"Is service needed? " + isServiceNeeded, 2, 2, m_hCar);
 	m_treeCtrl.InsertItem(L"Is fuel remaining? " + isFuelRemaining, 2, 2, m_hCar);
 
+
+
 	// auto document = GetDocument();
 	// document->AddVehicleToSerialList(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance);
 }
@@ -436,9 +438,12 @@ void CLeftView::deleteRightViewItems()
 
 void CLeftView::OnVehiclemenuDrive()
 {
+	gotoWrongInput:
 	CDriveDlg driveDlg;
 	if(driveDlg.DoModal() == IDOK)
 	{
+		if (!driveDlg.isValid()) goto gotoWrongInput;
+
 		long id = this->GetIdFromSelectedItem();
 		auto vehicles = GetDocument()->GetVehicleColltection();
 		vehicles.GetVehicleWithId(id)->doDrive(_wtof(driveDlg.m_Distance));

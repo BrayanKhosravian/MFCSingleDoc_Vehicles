@@ -6,6 +6,7 @@
 #pragma once
 #include "CVehicle.h"
 #include "CVehicleCollection.h"
+#include "TreeCtrlEx.h"
 
 class CMFCSingleDocVehiclesDoc;
 
@@ -54,12 +55,20 @@ public:
 	void CreatTreeFromSerialCollection(CVehicleCollection& vehicles);
 
 private:
+	// methods
 	void SaveDataToFields();
 	long GetIdFromSelectedItem();
 	void updateVehicleCollectionInDoc(CVehicleCollection& vehicles);
 	void deleteRightViewItems();
 
+protected:
+	// fields
+
+
+private:
+	// fields
 	CTreeCtrl& m_treeCtrl = GetTreeCtrl();
+	// CTreeCtrlEx m_treeCtrl;
 	HTREEITEM m_hItem;
 	HTREEITEM m_hCar;
 	HTREEITEM m_selectedItem;
