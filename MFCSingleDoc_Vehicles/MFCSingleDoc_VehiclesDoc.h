@@ -53,7 +53,7 @@ public:
 	// methods
 	void AddVehicleToSerialList(CString id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance);
 	void DeleteVehicleWithId(long id);
-	void EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
+	void EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaining);
 
 	// getters
 	CVehicleCollection GetVehicleColltection() { return std::move(m_serialCollection); }

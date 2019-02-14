@@ -59,7 +59,6 @@ private:
 	void SaveDataToFields();
 	long GetIdFromSelectedItem();
 	void updateVehicleCollectionInDoc(CVehicleCollection& vehicles);
-	void updateVehicleCollectionInDoc();
 	void deleteRightViewItems();
 
 protected:

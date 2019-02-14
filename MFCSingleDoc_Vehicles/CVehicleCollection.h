@@ -15,7 +15,7 @@ public:
 	void AddVehicle(CVehicle&& vehicle);
 	void DeleteVehicleWithIndex(std::size_t elementAt);
 	void DeleteVehicleWithId(long id);
-	void EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
+	void EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaining);
 
 	// Getters
 	CVehicle* GetVehicleWithIndex(size_t elementAt);

@@ -208,9 +208,13 @@ void CMFCSingleDocVehiclesDoc::DeleteVehicleWithId(long id)
 }
 
 void CMFCSingleDocVehiclesDoc::EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage,
-	CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval)
+	CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaining)
 {
-	m_serialCollection.EditVehicleWithId(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+	m_serialCollection.EditVehicleWithId(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
+
+	CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
+	auto leftView = pMainWnd->GetLeftPane();
+	leftView->CreatTreeFromSerialCollection(m_serialCollection);
 }
 
 

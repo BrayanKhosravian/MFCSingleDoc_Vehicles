@@ -322,12 +322,10 @@ void CLeftView::OnVehiclemenuEdit()
 		if (_wtof(fuelRemaining) <= 0) isFuelRemaining = L"TRUE";
 		else isFuelRemaining = L"FALSE";
 
-		this->InsertVehicleToListView(idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
+		// this->InsertVehicleToListView(idStr, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
 
 		long id = _wtol(idStr);
-		GetDocument()->EditVehicleWithId(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
-
-		this->updateVehicleCollectionInDoc();
+		GetDocument()->EditVehicleWithId(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
 
 		auto mainFrame = AfxGetApp()->m_pMainWnd;
 		CMainFrame *pMainWnd = (CMainFrame *)AfxGetMainWnd();
@@ -454,12 +452,6 @@ void CLeftView::updateVehicleCollectionInDoc(CVehicleCollection& vehicles)
 	// refresh vehicle collection
 	this->CreatTreeFromSerialCollection(vehicles);
 	GetDocument()->SetVehicleCollection(std::move(vehicles));
-}
-
-void CLeftView::updateVehicleCollectionInDoc()
-{
-	auto vehicles = GetDocument()->GetVehicleColltection();
-	this->CreatTreeFromSerialCollection(vehicles);
 }
 
 void CLeftView::deleteRightViewItems()

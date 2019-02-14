@@ -24,7 +24,7 @@ public:
 	void setName(const CString& name);
 	void setMaxFuelCapacity(int maxFuelCapacity);
 	void setFuelUsage(float fuelUsage);
-	void setAllMembers(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval);
+	void setAllMembers(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaining);
 	void setIsFuelRemaining(const bool isFuelRemaining) { m_isFuelRemaining = isFuelRemaining; }
 	void setIsServiceNeeded(const bool isServiceNeeded) { m_isServiceNeeded = isServiceNeeded; }
 
@@ -45,7 +45,7 @@ protected:
 private:
 	// fields
 	long m_id = 0;
-	CString m_name;
+	CString m_name = L"";
 	int m_maxFuelCapacity, m_power, m_serviceInterval = 0;
 	float m_fuelUsage, m_fuelRemaining, m_drivenDistance , m_tempServiceDistance = 0.00f;
 	bool m_isFuelRemaining, m_isServiceNeeded = false;

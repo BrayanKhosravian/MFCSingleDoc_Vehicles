@@ -33,13 +33,14 @@ void CVehicleCollection::DeleteVehicleWithId(long id)
 			return;
 		}
 	}
+	assert(false);
 }
 
 void CVehicleCollection::EditVehicleWithId(long id, CString name, CString maxFuelCapacity, CString fuelUsage,
-	CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval)
+	CString fuelRemaining, CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaining)
 {
 	auto vehicle = this->GetVehicleWithId(id);
-	vehicle->setAllMembers(name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval);
+	vehicle->setAllMembers(name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
 }
 
 CVehicle* CVehicleCollection::GetVehicleWithIndex(size_t elementAt)
@@ -57,6 +58,7 @@ CVehicle* CVehicleCollection::GetVehicleWithId(long id)
 			return m_vehicles.at(i).get();
 		}
 	}
+	assert(false);
 }
 
 size_t CVehicleCollection::GetSize()

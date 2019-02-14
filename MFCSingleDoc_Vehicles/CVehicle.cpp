@@ -82,6 +82,7 @@ CVehicle::CVehicle(CString name, CString maxFuelCapacity, CString fuelUsage, CSt
 
 CVehicle::~CVehicle()
 {
+
 }
 
 void CVehicle::doRefuel(float fuel)
@@ -146,7 +147,7 @@ void CVehicle::doService()
 }
 
 void CVehicle::setAllMembers(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining,
-	CString drivenDistance, CString power, CString serviceInterval)
+	CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaining)
 {
 	m_name = name;
 	m_maxFuelCapacity = _wtoi(maxFuelCapacity);
@@ -155,6 +156,10 @@ void CVehicle::setAllMembers(CString name, CString maxFuelCapacity, CString fuel
 	m_drivenDistance = _wtof(drivenDistance);
 	m_power = _wtoi(power);
 	m_serviceInterval = _wtoi(serviceInterval);
+	if (isServiceNeeded.Find(L"TRUE") != -1) m_isServiceNeeded = true;
+	else m_isServiceNeeded = false;
+	if (isFuelRemaining.Find(L"TRUE") != -1 && m_fuelRemaining >= 0) m_isFuelRemaining = true;
+	else m_isFuelRemaining = false;
 }
 
 //
