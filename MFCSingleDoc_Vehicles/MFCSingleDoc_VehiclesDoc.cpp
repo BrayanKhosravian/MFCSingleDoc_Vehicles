@@ -228,7 +228,12 @@ void CMFCSingleDocVehiclesDoc::OnToolsAddvehicle()
 		const CString power = vehicleDialog.m_Power;
 		const CString serviceInterval = vehicleDialog.m_ServiceInterval;
 
-		m_serialCollection.AddVehicle(CVehicle(name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval));
+		const CString isServiceNeeded = vehicleDialog.m_IsServiceNeeded ? L"TRUE" : L"FALSE";
+		CString isFuelRemaining;
+		if (_wtof(fuelRemaining) <= 0) isFuelRemaining = L"FALSE";
+		else isFuelRemaining = L"TRUE";
+
+		m_serialCollection.AddVehicle(CVehicle(name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining));
 
 		auto mainframe = (CMainFrame*)AfxGetApp()->m_pMainWnd;
 		auto leftPain = mainframe->GetLeftPane();

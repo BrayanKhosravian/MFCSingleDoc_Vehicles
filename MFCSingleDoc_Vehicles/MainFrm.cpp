@@ -33,7 +33,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
-	ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMainFrame::OnToolsAddvehicle)
+	// ON_COMMAND(ID_TOOLS_ADDVEHICLE, &CMainFrame::OnToolsAddvehicle)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -463,7 +463,7 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 	return TRUE;
 }
 
-
+/*
 void CMainFrame::OnToolsAddvehicle()
 {
 	CConfigureVehicleDlg vehicleDialog;
@@ -482,9 +482,12 @@ void CMainFrame::OnToolsAddvehicle()
 		if (_wtof(fuelRemaining) <= 0) isFuelRemaining = L"TRUE";
 		else isFuelRemaining = L"FALSE";
 
+		// auto doc = (CMFCSingleDocVehiclesDoc*)GetActiveDocument();
+
 		CLeftView* treeControl = this->GetLeftPane();
 		treeControl->InsertVehicleToListView(id, name, maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
 		
 	}
 	
 }
+*/

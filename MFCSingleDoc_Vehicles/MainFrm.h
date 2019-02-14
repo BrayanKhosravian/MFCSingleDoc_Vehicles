@@ -57,7 +57,7 @@ protected:
 
 
 public:
-	afx_msg void OnToolsAddvehicle();
+	//afx_msg void OnToolsAddvehicle();
 
 };
 

@@ -63,7 +63,16 @@ private:
 
 protected:
 	// fields
+	struct Color_Font
+	{
+		COLORREF color;
+		LOGFONT  logfont;
+	};
+	CMap< void*, void*, Color_Font, Color_Font& > m_mapColorFont;
 
+	void SetItemColor(HTREEITEM hItem, COLORREF color);
+	bool GetItemBold(HTREEITEM hItem);
+	COLORREF GetItemColor(HTREEITEM hItem);
 
 private:
 	// fields
@@ -94,6 +103,7 @@ public:
 	afx_msg void OnVehiclemenuDrive();
 	afx_msg void OnVehiclemenuService();
 	afx_msg void OnVehiclemenuRefuel();
+	afx_msg void OnPaint();
 };
 
 

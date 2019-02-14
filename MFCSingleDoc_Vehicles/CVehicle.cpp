@@ -60,7 +60,7 @@ CVehicle::CVehicle(CString name, int maxFuelCapacity, float fuelUsage, float fue
 }
 
 CVehicle::CVehicle(CString name, CString maxFuelCapacity, CString fuelUsage, CString fuelRemaining,
-	CString drivenDistance, CString power, CString serviceInterval)
+	CString drivenDistance, CString power, CString serviceInterval, CString isServiceNeeded, CString isFuelRemaining)
 {
 	m_id = this->idCounter();
 	m_name = name;
@@ -70,6 +70,12 @@ CVehicle::CVehicle(CString name, CString maxFuelCapacity, CString fuelUsage, CSt
 	m_drivenDistance = _wtof(drivenDistance);
 	m_power = _wtoi(power);
 	m_serviceInterval = _wtoi(serviceInterval);
+
+	if (isServiceNeeded.Find(L"TRUE") != -1) m_isServiceNeeded = true;
+	else m_isServiceNeeded = false;
+	if (isFuelRemaining.Find(L"TRUE") != -1) m_isFuelRemaining = true;
+	else m_isFuelRemaining = false;
+
 	if (m_fuelRemaining > m_maxFuelCapacity) m_fuelRemaining = m_maxFuelCapacity;
 }
 

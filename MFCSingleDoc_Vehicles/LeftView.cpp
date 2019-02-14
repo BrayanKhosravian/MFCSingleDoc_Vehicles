@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	ON_COMMAND(ID_VEHICLEMENU_DRIVE, &CLeftView::OnVehiclemenuDrive)
 	ON_COMMAND(ID_VEHICLEMENU_SERVICE, &CLeftView::OnVehiclemenuService)
 	ON_COMMAND(ID_VEHICLEMENU_REFUEL, &CLeftView::OnVehiclemenuRefuel)
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 
@@ -72,6 +73,11 @@ void CLeftView::OnInitialUpdate()
 
 	// m_hItem = m_treeCtrl.InsertItem(L"Vehicle List",2,2, TVI_ROOT);
 	// this->InsertVehicleToListView(L"1", L"Mustang", L"0", L"0", L"0", L"0"); // debug
+	
+	// Debug
+	//this->InsertVehicleToListView(L"10", L"correct", L"100", L"10", L"100", L"0", L"0", L"500", L"FALSE", L"TRUE");	// correct
+	//this->InsertVehicleToListView(L"11", L"no fuel", L"100", L"10", L"0", L"0", L"0", L"500", L"FALSE", L"FALSE");	// no fuel
+	//this->InsertVehicleToListView(L"12", L"service needed", L"100", L"10", L"100", L"0", L"0", L"500", L"TRUE", L"TRUE");	// service needed
 
 }
 
@@ -109,13 +115,19 @@ void CLeftView::InsertVehicleToListView(CString id, CString name, CString maxFue
 	m_treeCtrl.InsertItem(L"Name: "					+ name, 2, 2, m_hCar);
 	m_treeCtrl.InsertItem(L"Max fuel capacity: "	+ maxFuelCapacity,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Fuel usage: "			+ fuelUsage,2,2, m_hCar);
-	m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, 2,2, m_hCar);
+	
+	auto item = m_treeCtrl.InsertItem(L"Fuel remaining: "		+ fuelRemaining, 2,2, m_hCar);
+	if (_wtoi(fuelRemaining) <= 0) this->SetItemColor(item, RGB(255, 0, 0));
+	
 	m_treeCtrl.InsertItem(L"Driven distance: "		+ drivenDistance,2,2, m_hCar);
 	m_treeCtrl.InsertItem(L"Power: "				+ power, 2, 2, m_hCar);
 	m_treeCtrl.InsertItem(L"Service interval: "		+ serviceInterval, 2, 2, m_hCar);
-	m_treeCtrl.InsertItem(L"Is service needed? " + isServiceNeeded, 2, 2, m_hCar);
-	m_treeCtrl.InsertItem(L"Is fuel remaining? " + isFuelRemaining, 2, 2, m_hCar);
-
+	
+	item = m_treeCtrl.InsertItem(L"Is service needed? " + isServiceNeeded, 2, 2, m_hCar);
+	if (isServiceNeeded.Find(L"TRUE") != -1) this->SetItemColor(item, RGB(255, 0, 0));
+	
+	item = m_treeCtrl.InsertItem(L"Is fuel remaining? " + isFuelRemaining, 2, 2, m_hCar);
+	if (isFuelRemaining.Find(L"FALSE") != -1) this->SetItemColor(item, RGB(255, 0, 0));
 
 
 	// auto document = GetDocument();
@@ -134,8 +146,19 @@ void CLeftView::InsertVehicleToListView(CVehicle* vehicle)
 	drivenDistance.Format(L"%f", vehicle->getDrivenDistance());
 	power.Format(L"%d", vehicle->getPower());
 	serviceInterval.Format(L"%d", vehicle->getServiceInterval());
+
 	isServiceNeeded = vehicle->getIsServiceNeeded() ? "TRUE" : "FALSE";
 	isFuelRemaining = vehicle->getIsFuelRemaining() ? "TRUE" : "FALSE";
+	/*if(vehicle->getFuelRemaining() <= 0)
+	{
+		vehicle->setIsFuelRemaining(false);
+		isFuelRemaining = L"FALSE";
+	}
+	else
+	{
+		vehicle->setIsFuelRemaining(true);
+		isFuelRemaining = L"TRUE";
+	}*/
 
 	this->InsertVehicleToListView(id, name,maxFuelCapacity, fuelUsage, fuelRemaining, drivenDistance, power, serviceInterval, isServiceNeeded, isFuelRemaining);
 }
@@ -405,9 +428,12 @@ void CLeftView::deleteAllChildItems()
 		HTREEITEM hNextItem;
 		HTREEITEM hChildItem = m_treeCtrl.GetChildItem(m_hItem);
 
+		this->SetItemColor(hChildItem, RGB(0, 0, 0));
+
 		while (hChildItem != NULL)
 		{
 			hNextItem = m_treeCtrl.GetNextItem(hChildItem, TVGN_NEXT);
+			this->SetItemColor(hNextItem, RGB(0, 0, 0));
 			m_treeCtrl.DeleteItem(hChildItem);
 			hChildItem = hNextItem;
 		}
@@ -434,6 +460,29 @@ void CLeftView::deleteRightViewItems()
 	auto mainFrame = (CMainFrame*)AfxGetMainWnd();
 	auto rightPane = mainFrame->GetRightPane();
 	rightPane->DeleteAllItems();
+}
+
+void CLeftView::SetItemColor(HTREEITEM hItem, COLORREF color)
+{
+	Color_Font cf;
+	if (!m_mapColorFont.Lookup(hItem, cf))
+		cf.logfont.lfFaceName[0] = '\0';
+	cf.color = color;
+	m_mapColorFont[hItem] = cf;
+}
+
+bool CLeftView::GetItemBold(HTREEITEM hItem)
+{
+	return m_treeCtrl.GetItemState(hItem, TVIS_BOLD) & TVIS_BOLD;
+}
+
+COLORREF CLeftView::GetItemColor(HTREEITEM hItem)
+{
+	// Returns (COLORREF)-1 if color was not set
+	Color_Font cf;
+	if (!m_mapColorFont.Lookup(hItem, cf))
+		return (COLORREF)-1;
+	return cf.color;
 }
 
 void CLeftView::OnVehiclemenuDrive()
@@ -481,4 +530,87 @@ void CLeftView::OnVehiclemenuRefuel()
 		this->updateVehicleCollectionInDoc(vehicles);
 		this->deleteRightViewItems();
 	}
+}
+
+
+void CLeftView::OnPaint()
+{
+	CPaintDC dc(this);
+
+	// Create a memory DC compatible with the paint DC
+	CDC memDC;
+	memDC.CreateCompatibleDC(&dc);
+
+	CRect rcClip, rcClient;
+	dc.GetClipBox(&rcClip);
+	GetClientRect(&rcClient);
+
+	// Select a compatible bitmap into the memory DC
+	CBitmap bitmap;
+	bitmap.CreateCompatibleBitmap(&dc, rcClient.Width(), rcClient.Height());
+	memDC.SelectObject(&bitmap);
+
+	// Set clip region to be same as that in paint DC
+	CRgn rgn;
+	rgn.CreateRectRgnIndirect(&rcClip);
+	memDC.SelectClipRgn(&rgn);
+	rgn.DeleteObject();
+
+
+
+	// First let the control do its default drawing.
+	CWnd::DefWindowProc(WM_PAINT, (WPARAM)memDC.m_hDC, 0);
+
+
+	HTREEITEM hItem = m_treeCtrl.GetFirstVisibleItem();
+
+	int n = m_treeCtrl.GetVisibleCount() + 1;
+	while (hItem && n--)
+	{
+		CRect rect;
+
+		// Do not meddle with selected items or drop highlighted items
+		UINT selflag = TVIS_DROPHILITED | TVIS_SELECTED;
+		Color_Font cf;
+
+		if (!(m_treeCtrl.GetItemState(hItem, selflag) & selflag)
+			&& m_mapColorFont.Lookup(hItem, cf))
+		{
+			CFont *pFontDC;
+			CFont fontDC;
+			LOGFONT logfont;
+
+			if (cf.logfont.lfFaceName[0] != '\0')
+			{
+				logfont = cf.logfont;
+			}
+			else
+			{
+				// No font specified, so use window font
+				CFont *pFont = GetFont();
+				pFont->GetLogFont(&logfont);
+			}
+
+			if (GetItemBold(hItem))
+				logfont.lfWeight = 700;
+			fontDC.CreateFontIndirect(&logfont);
+			pFontDC = memDC.SelectObject(&fontDC);
+
+			if (cf.color != (COLORREF)-1)
+				memDC.SetTextColor(cf.color);
+
+			CString sItem = m_treeCtrl.GetItemText(hItem);
+
+			m_treeCtrl.GetItemRect(hItem, &rect, TRUE);
+			memDC.SetBkColor(GetSysColor(COLOR_WINDOW));
+			memDC.TextOut(rect.left + 2, rect.top + 1, sItem);
+
+			memDC.SelectObject(pFontDC);
+		}
+		hItem = m_treeCtrl.GetNextVisibleItem(hItem);
+	}
+
+
+	dc.BitBlt(rcClip.left, rcClip.top, rcClip.Width(), rcClip.Height(), &memDC,
+		rcClip.left, rcClip.top, SRCCOPY);
 }
